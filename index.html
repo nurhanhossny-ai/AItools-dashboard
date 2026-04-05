@@ -93,8 +93,8 @@ header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);bo
 
 /* ── Tables ── */
 .tool-header{padding:12px 20px;border-radius:8px 8px 0 0;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center}
-.tool-header.cursor{border-top:3px solid #0096c7;background:linear-gradient(90deg,#0c3547,#0a2a38)}
-.tool-header.claude{border-top:3px solid #7c3aed;background:linear-gradient(90deg,#2e1065,#1e0a4a)}
+.tool-header.cursor{background:linear-gradient(90deg,#0c3547,#0a2a38)}
+.tool-header.claude{background:linear-gradient(90deg,#2e1065,#1e0a4a)}
 .pill{background:rgba(255,255,255,.12);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
 .table-wrap{background:#1e293b;border-radius:0 0 8px 8px;overflow-x:auto;margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:12px}
@@ -105,46 +105,6 @@ tr:last-child td{border-bottom:none}
 .status{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600}
 .status.active{background:#052e16;color:#4ade80}
 .status.inactive{background:#2d1515;color:#f87171}
-.status.pending{background:#2d1f00;color:#fbbf24}
-.spend-active{color:#f59e0b;font-weight:600}
-.spend-low{color:#94a3b8;font-weight:600}
-.spend-zero{color:#475569}
-
-/* ── Total cost banner ── */
-.total-banner{background:linear-gradient(135deg,#0c2340,#0a1628);border:1px solid #1e4a7a;border-radius:12px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
-.total-banner .label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px}
-.total-banner .amount{font-size:38px;font-weight:900;color:#38bdf8}
-.total-banner .note{font-size:11px;color:#64748b;margin-top:4px}
-
-/* ── Insights ── */
-.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px}
-.insight{padding:14px 16px;border-radius:8px;border-left:4px solid}
-.insight.good{background:#052e16;border-color:#16a34a}
-.insight.warn{background:#2d1f00;border-color:#d97706}
-.insight.info{background:#0c1f3d;border-color:#0096c7}
-.insight-title{font-weight:700;font-size:13px;margin-bottom:4px}
-.insight-text{font-size:12px;color:#94a3b8;line-height:1.5}
-.insight.good .insight-title{color:#4ade80}
-.insight.warn .insight-title{color:#fbbf24}
-.insight.info  .insight-title{color:#38bdf8}
-
-/* ── Note bars ── */
-.note-bar{font-size:11px;padding:8px 14px;border-top:1px solid}
-.note-bar.cursor{background:#0c2340;border-color:#1e4a7a;color:#0369a1}
-.note-bar.claude{background:#1a0a3d;border-color:#3b0764;color:#a78bfa}
-
-/* ── Footer ── */
-footer{text-align:center;padding:20px;color:#475569;font-size:11px;border-top:1px solid #1e293b;margin-top:32px}
-footer a{color:#0096c7;text-decoration:none}
-
-@media(max-width:600px){
-.kpi-value{font-size:22px}
-.total-banner .amount{font-size:26px}
-.performers-grid{grid-template-columns:1fr}
-.charts-grid{grid-template-columns:1fr}
-}
-</style>
-</head>:#f87171}
 .spend-active{color:#f59e0b;font-weight:600}
 .spend-low{color:#94a3b8;font-weight:600}
 .spend-zero{color:#475569}
@@ -343,7 +303,7 @@ footer a{color:#0096c7;text-decoration:none}
             <span class="perf-medal">⚠️</span>
           </div>
           <div class="perf-user">
-            <div class="avatar av-gemini lg" style="background:#92400e;font-size:14px">0</div>
+            <div class="avatar av-gemini lg" style="background:#92400e{font-size:14px">0</div>
             <div>
               <div class="perf-name">No top user yet</div>
               <div class="perf-email">0 of 10 eligible users active in last 28 days</div>
@@ -543,7 +503,7 @@ footer a{color:#0096c7;text-decoration:none}
         </tr>
         <tr>
           <td>3</td>
-          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">BM</div><strong>Bahaa Mohamed</strong></div></td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div classtyle="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">BM</div><strong>Bahaa Mohamed</strong></div></td>
           <td style="color:#64748b">Bahaa.Mohamed@win-holding.com</td>
           <td>User</td>
           <td>Standard</td>
@@ -674,7 +634,7 @@ footer a{color:#0096c7;text-decoration:none}
           <td>User</td>
           <td>Standard</td>
           <td>$25.00</td>
-          <td><span class="status active">✅ Active</span></td>
+          <td><span class="status acstatus active">✅ Active</span></td>
         </tr>
         <tr>
           <td>18</td>

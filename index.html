@@ -1,652 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fotopia AI Tools Dashboard</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f8; color: #1a1a2e; }
-    /* Tailwind-like utilities */
-    .flex { display: flex; } .flex-col { flex-direction: column; } .items-center { align-items: center; }
-    .justify-between { justify-content: space-between; } .justify-center { justify-content: center; }
-    .gap-4 { gap: 1rem; } .gap-6 { gap: 1.5rem; } .gap-8 { gap: 2rem; }
-    .grid { display: grid; } .grid-cols-2 { grid-template-columns: repeat(2,1fr); }
-    .grid-cols-3 { grid-template-columns: repeat(3,1fr); } .grid-cols-4 { grid-template-columns: repeat(4,1fr); }
-    .w-full { width: 100%; } .max-w-7xl { max-width: 80rem; } .mx-auto { margin: 0 auto; }
-    .p-4 { padding: 1rem; } .p-6 { padding: 1.5rem; } .p-8 { padding: 2rem; }
-    .px-2 { padding-left:.5rem;padding-right:.5rem; } .px-4 { padding-left:1rem;padding-right:1rem; }
-    .px-6 { padding-left:1.5rem;padding-right:1.5rem; } .py-0\.5 { padding-top:.125rem;padding-bottom:.125rem; }
-    .py-2 { padding-top:.5rem;padding-bottom:.5rem; } .py-3 { padding-top:.75rem;padding-bottom:.75rem; }
-    .py-4 { padding-top:1rem;padding-bottom:1rem; } .py-6 { padding-top:1.5rem;padding-bottom:1.5rem; }
-    .mb-1 { margin-bottom:.25rem; } .mb-2 { margin-bottom:.5rem; } .mb-4 { margin-bottom:1rem; }
-    .mb-6 { margin-bottom:1.5rem; } .mb-8 { margin-bottom:2rem; } .mt-1 { margin-top:.25rem; }
-    .mt-2 { margin-top:.5rem; } .mt-4 { margin-top:1rem; } .mt-6 { margin-top:1.5rem; }
-    .text-xs { font-size:.75rem; } .text-sm { font-size:.875rem; } .text-base { font-size:1rem; }
-    .text-lg { font-size:1.125rem; } .text-xl { font-size:1.25rem; } .text-2xl { font-size:1.5rem; }
-    .text-3xl { font-size:1.875rem; } .text-4xl { font-size:2.25rem; }
-    .font-semibold { font-weight:600; } .font-bold { font-weight:700; } .font-mono { font-family:monospace; }
-    .text-center { text-align:center; } .text-right { text-align:right; } .text-left { text-align:left; }
-    .text-white { color:#fff; } .text-gray-400 { color:#9ca3af; } .text-gray-500 { color:#6b7280; }
-    .text-gray-600 { color:#4b5563; } .text-gray-700 { color:#374151; } .text-gray-900 { color:#111827; }
-    .text-indigo-600 { color:#4f46e5; } .text-indigo-700 { color:#4338ca; }
-    .text-emerald-700 { color:#047857; } .text-blue-700 { color:#1d4ed8; }
-    .text-green-700 { color:#15803d; } .text-yellow-700 { color:#b45309; }
-    .bg-white { background:#fff; } .bg-gray-50 { background:#f9fafb; } .bg-gray-100 { background:#f3f4f6; }
-    .bg-blue-50 { background:#eff6ff; } .bg-green-100 { background:#dcfce7; }
-    .bg-yellow-100 { background:#fef9c3; } .bg-indigo-50 { background:#eef2ff; }
-    .rounded { border-radius:.25rem; } .rounded-lg { border-radius:.5rem; }
-    .rounded-xl { border-radius:.75rem; } .rounded-2xl { border-radius:1rem; }
-    .rounded-full { border-radius:9999px; }
-    .shadow { box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06); }
-    .shadow-lg { box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1); }
-    .border { border:1px solid #e5e7eb; } .border-b { border-bottom:1px solid #e5e7eb; }
-    .overflow-hidden { overflow:hidden; } .overflow-x-auto { overflow-x:auto; }
-    .capitalize { text-transform:capitalize; } .uppercase { text-transform:uppercase; }
-    .tracking-wide { letter-spacing:.025em; }
-    table { border-collapse:collapse; width:100%; }
-    thead tr { background:#f9fafb; }
-    tbody tr:hover { background:#f9fafb; }
-    th { font-weight:600; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:#6b7280; padding:.75rem 1rem; text-align:left; border-bottom:1px solid #e5e7eb; }
-
-    /* Header */
-    .header { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); color:white; padding:2rem; }
-    .header-title { font-size:1.75rem; font-weight:700; }
-    .header-sub { font-size:.875rem; opacity:.7; margin-top:.25rem; }
-    .header-badge { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); border-radius:9999px; padding:.25rem .75rem; font-size:.75rem; }
-
-    /* Tool sections */
-    .section-header { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; padding-bottom:.75rem; border-bottom:2px solid #e5e7eb; }
-    .section-icon { width:2.5rem; height:2.5rem; border-radius:.5rem; display:flex; align-items:center; justify-content:center; font-size:1.125rem; }
-    .section-title { font-size:1.25rem; font-weight:700; color:#111827; }
-    .section-sub { font-size:.75rem; color:#9ca3af; }
-
-    /* KPI cards */
-    .kpi-card { background:white; border-radius:.75rem; padding:1.25rem; box-shadow:0 1px 3px rgba(0,0,0,.07); border:1px solid #f0f0f0; }
-    .kpi-label { font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; font-weight:600; margin-bottom:.25rem; }
-    .kpi-value { font-size:1.75rem; font-weight:700; line-height:1; }
-    .kpi-sub { font-size:.75rem; color:#9ca3af; margin-top:.25rem; }
-
-    /* Progress bar */
-    .progress-bg { background:#f3f4f6; border-radius:9999px; height:.5rem; overflow:hidden; }
-    .progress-fill { height:100%; border-radius:9999px; transition:width .6s ease; }
-
-    /* Alert banner */
-    .alert-banner { background:#fef3c7; border:1px solid #fcd34d; border-radius:.5rem; padding:.75rem 1rem; font-size:.875rem; color:#92400e; display:flex; align-items:center; gap:.5rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Tools Usage Dashboard — Fotopia Dev Team</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);border-bottom:1px solid #1e3a5f;iadding:20px 32px}
+.header-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
+.header-title span{color:#38bdf8}
+.header-subtitle{font-size:13px;color:#64748b;margin-bottom:12px}
+.header-badges{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.badge{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:5px}
+.badge-live{background:#052e16;border:1px solid #16a34a;color:#4ade80}
+.badge-date{background:#1e293b;border:1px solid #334155;color:#94a3b8}
+.badge-domain{background:#1e293b;border:1px solid #334155;color:#94a3b8}
+.badge-clock{background:#1e293b;border:1px solid #334155;color:#38bdf8;font-family:monospace}
+.badge-alert{background:#450a0a;border:1px solid #dc2626;color:#f87171}
+.period-bar{background:#131f35;border-bottom:1px solid #1e3a5f;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.period-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.period-label{font-size:13px;color:#94a3b8;font-weight:600}
+.period-btn{background:#1e293b;border:1px solid #334155;color:#94a3b8;padding:5px 14px;border-radius:6px;font-size:12px;cursor:pointer;transition:all .2s}
+.period-btn:hover{border-color:#0096c7;color:#38bdf8}
+.period-btn.active{background:#0096c7;border-color:#0096c7;color:#fff;font-weight:700}
+.period-custom{display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b}
+.period-custom input{background:#1e293b;border:1px solid #334155;color:#e2e8f0;padding:4px 8px;border-radius:4px;font-size:11px;width:110px}
+.period-custom button{background:#0096c7;border:none;color:#fff;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;font-weight:600}
+.period-showing{font-size:12px;color:#64748b}
+.main{max-width:1500px;margin:0 auto;padding:24px 24px}
+.section-title{font-size:13px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin:28px 0 14px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:#1e293b}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:8px}
+.kpi{background:#1e293b;border-radius:12px;padding:18px 20px;border:1px solid #334155;border-top:3px solid #334155;transition:transform .2s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi.cursor{border-top-color:#0096c7}
+.kpi.claude{border-top-color:#7c3aed}
+.kpi.gemini{border-top-color:#d97706}
+.kpi.alert{border-top-color:#dc2626;border-color:#7f1d1d}
+.kpi-tool{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.kpi.cursor .kpi-tool{color:#0096c7}
+.kpi.claude .kpi-tool{color:#a78bfa}
+.kpi.gemini .kpi-tool{color:#fbbf24}
+.kpi.alert .kpi-tool{color:#f87171}
+.kpi-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-value{font-size:30px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
+.kpi.cursor .kpi-value{color:#38bdf8}
+.kpi.claude .kpi-value{color:#c4b5fd}
+.kpi.gemini .kpi-value{color:#fcd34d}
+.kpi.alert .kpi-value{color:#f87171}
+.kpi-sub{font-size:11px;color:#475569}
+.performers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.performer-card{background:#1e293b;border-radius:12px;border:1px solid #334155;overflow:hidden}
+.performer-card.cursor{border-top:3px solid #0096c7}
+.performer-card.claude{border-top:3px solid #7c3aed}
+.performer-card.gemini{border-top:3px solid #d97706}
+.performer-card.alert{border-top:3px solid #dc2626}
+.perf-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(0,0,0,.2)}
+.perf-tool-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.performer-card.cursor .perf-tool-badge{color:#38bdf8}
+.performer-card.claude .perf-tool-badge{color:#a78bfa}
+.performer-card.gemini .perf-tool-badge{color:#fbbf24}
+.performer-card.alert .perf-tool-badge{color:#f87171}
+.perf-medal{font-size:18px}
+.perf-user{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #1a2942}
+.perf-name{font-weight:700;font-size:14px;color:#fff}
+.perf-email{font-size:11px;color:#64748b;margin-top:2px}
+.perf-stats{display:flex;justify-content:space-around;padding:14px 16px}
+.perf-stat{text-align:center}
+.ps-val{font-size:18px;font-weight:800;color:#fff}
+.ps-lbl{font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.avatar.lg{width:44px;height:44px;font-size:15px}
+.av-cursor{background:linear-gradient(135deg,#0096c7,#0e7490);color:#fff}
+.av-claude{background:linear-gradient(135deg,#7c3aed,#4c1d95);color:#fff}
+.av-gemini{background:linear-gradient(135deg,#d97706,#92400e);color:#fff}
+.av-alert{background:linear-gradient(135deg,#dc2626,#7f1d1d);color:#fff}
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:16px}
+.chart-card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px}
+.chart-title{font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.6px;margin-bottom:16px}
+.chart-wrap{position:relative;height:220px}
+.tool-header{padding:12px 20px;border-radius:8px 8px 0 0;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.tool-header.cursor{background:linear-gradient(90deg,#0c3547,#0a2a38)}
+.tool-header.claude{background:linear-gradient(90deg,#2e1065,#1e0a4a)}
+.pill{background:rgba(255,255,255,.12);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
+.table-wrap{background:#1e293b;border-radius:0 0 8px 8px;overflow-x:auto;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#162032;color:#94a3b8;font-weight:600;padding:10px 12px;text-align:left;white-space:nowrap;border-bottom:1px solid #334155}
+td{padding:9px 12px;border-bottom:1px solid #1a2942;white-space:nowrap}
+tr:hover td{background:#243247}
+tr:last-child td{border-bottom:none}
+.status{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.status.active{background:#052e16;color:#4ade80}
+.status.inactive{background:#2d1515;color:#f87171}
+.status.blocked{background:#450a0a;color:#f87171;border:1px solid #dc2626}
+.spend-high{color:#f87171;font-weight:700}
+.spend-active{color:#f59e0b;font-weight:600}
+.spend-low{color:#94a3b8;font-weight:600}
+.spend-zero{color:#475569}
+.total-banner{background:linear-gradient(135deg,#0c2340,#0a1628);border:1px solid #1e4a7a;border-radius:12px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
+.total-banner .label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px}
+.total-banner .amount{font-size:38px;font-weight:900;color:#38bdf8}
+.total-banner .note{font-size:11px;color:#64748b;margin-top:4px}
+.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;margin-top:4px}
+.insight{border-radius:10px;padding:16px 18px;border-left:4px solid}
+.insight.danger{background:#1a0505;border-color:#dc2626}
+.insight.good{background:#051a0f;border-color:#16a34a}
+.insight.warn{background:#1a1205;border-color:#d97706}
+.insight-title{font-size:13px;font-weight:700;margin-bottom:6px}
+.insight.danger .insight-title{color:#f87171}
+.insight.good .insight-title{color:#4ade80}
+.insight.warn .insight-title{color:#fbbf24}
+.insight-text{font-size:12px;color:#94a3b8;line-height:1.6}
+.note-bar{padding:10px 16px;font-size:11px;color:#64748b;border-top:1px solid #1e3a5f}
+.note-bar.cursor{background:#071624}
+.note-bar.claude{background:#0d0521}
+footer{text-align:center;padding:20px;font-size:11px;color:#334155;border-top:1px solid #1e293b;margin-top:40px}
+footer a{color:#475569;text-decoration:none}
+@media(max-width:768px){
+  header,.period-bar,.main{padding:16px}
+  .kpi-value{font-size:22px}
+  .total-banner .amount{font-size:26px}
+}
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex justify-between items-center">
-      <div>
-        <div class="header-title">🤖 Fotopia AI Tools Dashboard</div>
-        <div class="header-sub">30-day period: 2026-03-15 → 2026-04-14</div>
-      </div>
-      <div class="flex gap-4 items-center">
-        <span class="header-badge">Updated: 2026-04-14 06:14 UTC</span>
-      </div>
-    </div>
-
-    <!-- Top-level summary bar -->
-    <div class="grid grid-cols-4 gap-4 mt-6">
-      <div style="background:rgba(255,255,255,.1);border-radius:.75rem;padding:1rem;border:1px solid rgba(255,255,255,.15)">
-        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.05em">Cursor Spend (30d)</div>
-        <div style="font-size:1.75rem;font-weight:700;margin-top:.25rem">$1,608.16</div>
-        <div style="font-size:.75rem;opacity:.6">On-demand: $1,328.18</div>
-      </div>
-      <div style="background:rgba(255,255,255,.1);border-radius:.75rem;padding:1rem;border:1px solid rgba(255,255,255,.15)">
-        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.05em">Claude Monthly</div>
-        <div style="font-size:1.75rem;font-weight:700;margin-top:.25rem">$525</div>
-        <div style="font-size:.75rem;opacity:.6">Next: 2026-05-02</div>
-      </div>
-      <div style="background:rgba(255,255,255,.1);border-radius:.75rem;padding:1rem;border:1px solid rgba(255,255,255,.15)">
-        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.05em">AI Code Impact</div>
-        <div style="font-size:1.75rem;font-weight:700;margin-top:.25rem">86.5%</div>
-        <div style="font-size:.75rem;opacity:.6">207 commits · 10 repos</div>
-      </div>
-      <div style="background:rgba(255,255,255,.1);border-radius:.75rem;padding:1rem;border:1px solid rgba(255,255,255,.15)">
-        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.05em">Lines Accepted</div>
-        <div style="font-size:1.75rem;font-weight:700;margin-top:.25rem">238.3K</div>
-        <div style="font-size:.75rem;opacity:.6">98.6% acceptance rate</div>
-      </div>
-    </div>
+<header>
+  <div class="header-title">🚀 AI Tools Usage Dashboard — <span>Fotopia Dev Team</span></div>
+  <div class="header-subtitle">Management overview of AI tool adoption, usage &amp; spend across the development team</div>
+  <div class="header-badges">
+    <span class="badge badge-live">● LIVE</span>
+    <span class="badge badge-date">📅 2026-04-13</span>
+    <span class="badge badge-domain">🏢 fotopiatech.com · infasme.com · win-holding.com · music-yard.com</span>
+    <span class="badge badge-clock" id="liveClock">⏰ --:--:--</span>
+    <span class="badge badge-alert">🚨 ON-DEMAND LIMIT REACHED</span>
   </div>
+</header>
+
+<div class="period-bar">
+  <div class="period-left">
+    <span class="period-label">📅 Period:</span>
+    <button class="period-btn" onclick="setPeriod(7,this)">Last 7 Days</button>
+    <button class="period-btn active" onclick="setPeriod(30,this)">Last 30 Days</button>
+    <button class="period-btn" onclick="setPeriod(90,this)">Last 90 Days</button>
+    <span class="period-custom">
+      From <input type="date" id="fromDate" value="2026-03-14">
+      To <input type="date" id="toDate" value="2026-04-13">
+      <button onclick="applyCustom()">Apply</button>
+    </span>
+  </div>
+  <div class="period-showing">Showing: <strong id="showingLabel">Mar 14, 2026 – Apr 13, 2026</strong></div>
 </div>
 
-<div class="max-w-7xl mx-auto p-6">
+<div class="main">
 
-  <!-- ══════════════════ CURSOR SECTION ══════════════════ -->
-  <div class="bg-white rounded-2xl shadow p-6 mb-8">
-    <div class="section-header">
-      <div class="section-icon" style="background:#dbeafe">⚡</div>
-      <div>
-        <div class="section-title">Cursor</div>
-        <div class="section-sub">AI-powered IDE · Team of 9 · Cycle ends 2026-05-01</div>
+  <!-- ALERTS -->
+  <div style="background:#1a0505;border:1px solid #7f1d1d;border-radius:10px;padding:14px 18px;margin-bottom:20px">
+    <div style="color:#f87171;font-weight:700;font-size:13px;margin-bottom:6px">🚨 ALERT — Cursor On-Demand Limit Reached · 2 Users Blocked</div>
+    <div style="font-size:12px;color:#94a3b8">The team has reached <strong style="color:#f87171">100% of the on-demand usage limit</strong> and <strong style="color:#f87171">2 users are currently blocked</strong> from making additional requests. Mohamed Salah leads with <strong style="color:#f87171">$1,130.96</strong> in on-demand charges this billing cycle (Apr 1 – present). Total on-demand this cycle: <strong style="color:#f87171">$1,328.18</strong>. Review model usage and configure limits immediately.</div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="section-title">📊 KEY METRICS OVERVIEW</div>
+  <div class="kpi-grid">
+    <div class="kpi alert">
+      <div class="kpi-tool">⚡ Cursor</div>
+      <div class="kpi-label">Total Cycle Spend</div>
+      <div class="kpi-value">$1,508</div>
+      <div class="kpi-sub">$180 seats + $1,328.18 on-demand (Apr 1–13)</div>
+    </div>
+    <div class="kpi cursor">
+      <div class="kpi-tool">⚡ Cursor</div>
+      <div class="kpi-label">Total Agent Lines (30d)</div>
+      <div class="kpi-value">277.1K</div>
+      <div class="kpi-sub">Composer accepted lines across team (last 30 days)</div>
+    </div>
+    <div class="kpi cursor">
+      <div class="kpi-tool">⚡ Cursor</div>
+      <div class="kpi-label">Active / Total Seats</div>
+      <div class="kpi-value">5/9</div>
+      <div class="kpi-sub">56% seat utilization · 1 seat removed vs last week</div>
+    </div>
+    <div class="kpi claude">
+      <div class="kpi-tool">🤖 Claude</div>
+      <div class="kpi-label">Active Members</div>
+      <div class="kpi-value">21/21</div>
+      <div class="kpi-sub">All members active · 100% utilization</div>
+    </div>
+    <div class="kpi claude">
+      <div class="kpi-tool">🤖 Claude</div>
+      <div class="kpi-label">Monthly Cost</div>
+      <div class="kpi-value">$525</div>
+      <div class="kpi-sub">$25/seat × 21 seats · Next billing May 2</div>
+    </div>
+    <div class="kpi gemini">
+      <div class="kpi-tool">🔮 Gemini</div>
+      <div class="kpi-label">Eligible / Active</div>
+      <div class="kpi-value">10/0</div>
+      <div class="kpi-sub">Included in Workspace plan — no extra cost</div>
+    </div>
+  </div>
+
+  <!-- SPOTLIGHT CARDS -->
+  <div class="section-title">🏆 SPOTLIGHT</div>
+  <div class="performers-grid">
+    <div class="performer-card alert">
+      <div class="perf-header"><span class="perf-tool-badge">🚨 CURSOR — HIGHEST ON-DEMAND SPEND</span><span class="perf-medal">⚠️</span></div>
+      <div class="perf-user"><div class="avatar lg av-alert">MS</div><div><div class="perf-name">Mohamed Salah</div><div class="perf-email">mohamed.salah@infasme.com</div></div></div>
+      <div class="perf-stats">
+        <div class="perf-stat"><div class="ps-val" style="color:#f87171">$1,130.96</div><div class="ps-lbl">On-Demand</div></div>
+        <div class="perf-stat"><div class="ps-val">2,303</div><div class="ps-lbl">Agent Requests</div></div>
+        <div class="perf-stat"><div class="ps-val">7,687</div><div class="ps-lbl">Diff Accepts</div></div>
       </div>
     </div>
-
-    <!-- KPI row -->
-    <div class="grid grid-cols-4 gap-4 mb-6">
-      <div class="kpi-card">
-        <div class="kpi-label">Active Users (30d)</div>
-        <div class="kpi-value text-indigo-700">5<span style="font-size:1rem;color:#9ca3af">/9</span></div>
-        <div class="kpi-sub">7d: 4 active</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Total Spend</div>
-        <div class="kpi-value text-emerald-700">$1,608.16</div>
-        <div class="kpi-sub">On-demand: $1,328.18</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Lines Accepted</div>
-        <div class="kpi-value text-indigo-700">238.3K</div>
-        <div class="kpi-sub">8.7K diffs accepted</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Acceptance Rate</div>
-        <div class="kpi-value text-emerald-700">98.6%</div>
-        <div class="kpi-sub">Composer suggestions</div>
+    <div class="performer-card cursor">
+      <div class="perf-header"><span class="perf-tool-badge cursor">⚡ CURSOR — ON-DEMAND (2nd)</span><span class="perf-medal">🥈</span></div>
+      <div class="perf-user"><div class="avatar lg av-cursor">OE</div><div><div class="perf-name">Omar Alaa Elnahass</div><div class="perf-email">i-omar.alaa@fotopiatech.com</div></div></div>
+      <div class="perf-stats">
+        <div class="perf-stat"><div class="ps-val">$197.22</div><div class="ps-lbl">On-Demand</div></div>
+        <div class="perf-stat"><div class="ps-val">277.1K</div><div class="ps-lbl">Team Lines</div></div>
+        <div class="perf-stat"><div class="ps-val">351</div><div class="ps-lbl">Tab Accepts</div></div>
       </div>
     </div>
-
-    <!-- AI Commits highlight -->
-    <div style="background:linear-gradient(135deg,#eef2ff,#f0fdf4);border-radius:.75rem;padding:1rem 1.5rem;margin-bottom:1.5rem;border:1px solid #e0e7ff">
-      <div class="flex justify-between items-center mb-2">
-        <span style="font-weight:600;color:#3730a3">🔀 AI Commit Impact</span>
-        <span style="font-size:.875rem;color:#6b7280">2026-03-15 → 2026-04-14</span>
-      </div>
-      <div class="grid grid-cols-4 gap-6">
-        <div><div style="font-size:1.5rem;font-weight:700;color:#4f46e5">86.5%</div><div style="font-size:.75rem;color:#6b7280">AI code impact</div></div>
-        <div><div style="font-size:1.5rem;font-weight:700;color:#059669">207</div><div style="font-size:.75rem;color:#6b7280">total commits</div></div>
-        <div><div style="font-size:1.5rem;font-weight:700;color:#7c3aed">113.6K</div><div style="font-size:.75rem;color:#6b7280">AI lines added</div></div>
-        <div><div style="font-size:1.5rem;font-weight:700;color:#0891b2">10</div><div style="font-size:.75rem;color:#6b7280">active repos</div></div>
-      </div>
-      <div class="mt-2">
-        <div class="flex justify-between text-xs text-gray-500 mb-1">
-          <span>AI lines vs total</span><span>86.5%</span>
-        </div>
-        <div class="progress-bg">
-          <div class="progress-fill" style="width:86.5%;background:linear-gradient(90deg,#4f46e5,#7c3aed)"></div>
-        </div>
+    <div class="performer-card claude">
+      <div class="perf-header"><span class="perf-tool-badge claude">🤖 CLAUDE — FULL TEAM ACTIVE</span><span class="perf-medal">✅</span></div>
+      <div class="perf-user"><div class="avatar lg av-claude">FM</div><div><div class="perf-name">21 of 21 Members</div><div class="perf-email">All seats occupied and active</div></div></div>
+      <div class="perf-stats">
+        <div class="perf-stat"><div class="ps-val">21</div><div class="ps-lbl">Active</div></div>
+        <div class="perf-stat"><div class="ps-val">100%</div><div class="ps-lbl">Utilization</div></div>
+        <div class="perf-stat"><div class="ps-val">$525</div><div class="ps-lbl">Monthly</div></div>
       </div>
     </div>
-
-    <!-- Two-column: Leaderboard + Spend -->
-    <div class="grid grid-cols-2 gap-6">
-      <!-- Leaderboard -->
-      <div>
-        <h3 class="font-semibold text-gray-700 mb-3">🏆 Composer Leaderboard (30d)</h3>
-        <div class="overflow-hidden rounded-lg border">
-          <table>
-            <thead><tr>
-              <th class="text-center">#</th>
-              <th>User</th>
-              <th class="text-right">Lines</th>
-              <th class="text-right">Diffs</th>
-              <th class="text-center">Model</th>
-            </tr></thead>
-            <tbody>
-          <tr>
-            <td class="px-4 py-3 text-center font-bold text-lg">🥇</td>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Mohamed.salah</div>
-              <div class="text-xs text-gray-400">mohamed.salah@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-indigo-700">185.8K</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-600">6.3K</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-gray-100 text-gray-600 rounded px-2 py-0.5">default</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3 text-center font-bold text-lg">🥈</td>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Omar Alaa Elnahass</div>
-              <div class="text-xs text-gray-400">i-omar.alaa@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-indigo-700">85.9K</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-600">1.5K</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-gray-100 text-gray-600 rounded px-2 py-0.5">default</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3 text-center font-bold text-lg">🥉</td>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Daniel Lewis</div>
-              <div class="text-xs text-gray-400">daniel.lewis@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-indigo-700">21.4K</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-600">653</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-gray-100 text-gray-600 rounded px-2 py-0.5">claude-4.6-opus-high-thinking</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3 text-center font-bold text-lg">#4</td>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Deema.ayman</div>
-              <div class="text-xs text-gray-400">deema.ayman@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-indigo-700">2.2K</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-600">166</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-gray-100 text-gray-600 rounded px-2 py-0.5">default</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3 text-center font-bold text-lg">#5</td>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Sameh Amnoun</div>
-              <div class="text-xs text-gray-400">samehamnoun@gmail.com</div>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-indigo-700">2.0K</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-600">35</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-gray-100 text-gray-600 rounded px-2 py-0.5">default</span>
-            </td>
-          </tr></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Spend by member -->
-      <div>
-        <h3 class="font-semibold text-gray-700 mb-3">💸 Spend by Member (30d)</h3>
-        <div class="overflow-hidden rounded-lg border">
-          <table>
-            <thead><tr>
-              <th>User</th>
-              <th class="text-center">Role</th>
-              <th class="text-right">Total</th>
-              <th class="text-right">On-demand</th>
-              <th class="text-right">Lines</th>
-            </tr></thead>
-            <tbody>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Mohamed.salah</div>
-              <div class="text-xs text-gray-400">mohamed.salah@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-blue-50 text-blue-700 rounded px-2 py-0.5">Member</span>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-emerald-700">$1,236.16</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-500">$1,130.96</td>
-            <td class="px-4 py-3 text-right font-mono text-indigo-600">185.8K</td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Omar Alaa Elnahass</div>
-              <div class="text-xs text-gray-400">i-omar.alaa@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-blue-50 text-blue-700 rounded px-2 py-0.5">Member</span>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-emerald-700">$300.02</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-500">$197.22</td>
-            <td class="px-4 py-3 text-right font-mono text-indigo-600">85.9K</td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Daniel Lewis</div>
-              <div class="text-xs text-gray-400">daniel.lewis@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-blue-50 text-blue-700 rounded px-2 py-0.5">Member</span>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-emerald-700">$53.43</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-500">$0.00</td>
-            <td class="px-4 py-3 text-right font-mono text-indigo-600">21.4K</td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Deema.ayman</div>
-              <div class="text-xs text-gray-400">deema.ayman@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-blue-50 text-blue-700 rounded px-2 py-0.5">Member</span>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-emerald-700">$16.63</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-500">$0.00</td>
-            <td class="px-4 py-3 text-right font-mono text-indigo-600">2.2K</td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Sameh Amnoun</div>
-              <div class="text-xs text-gray-400">samehamnoun@gmail.com</div>
-            </td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-blue-50 text-blue-700 rounded px-2 py-0.5">Member</span>
-            </td>
-            <td class="px-4 py-3 text-right font-mono font-semibold text-emerald-700">$1.92</td>
-            <td class="px-4 py-3 text-right font-mono text-gray-500">$0.00</td>
-            <td class="px-4 py-3 text-right font-mono text-indigo-600">2.0K</td>
-          </tr></tbody>
-          </table>
-        </div>
+    <div class="performer-card gemini">
+      <div class="perf-header"><span class="perf-tool-badge gemini">🔮 GEMINI — NO ACTIVE USERS YET</span><span class="perf-medal">💤</span></div>
+      <div class="perf-user"><div class="avatar lg av-gemini">G</div><div><div class="perf-name">0 of 10 Eligible</div><div class="perf-email">No usage recorded in last 30 days</div></div></div>
+      <div class="perf-stats">
+        <div class="perf-stat"><div class="ps-val">0%</div><div class="ps-lbl">Adoption</div></div>
+        <div class="perf-stat"><div class="ps-val">10</div><div class="ps-lbl">Eligible</div></div>
+        <div class="perf-stat"><div class="ps-val">$0</div><div class="ps-lbl">Extra Cost</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════ CLAUDE SECTION ══════════════════ -->
-  <div class="bg-white rounded-2xl shadow p-6 mb-8">
-    <div class="section-header">
-      <div class="section-icon" style="background:#fce7f3">🧠</div>
-      <div>
-        <div class="section-title">Claude (Anthropic)</div>
-        <div class="section-sub">Team plan · 21 seats · Next billing 2026-05-02</div>
-      </div>
+  <!-- CHARTS -->
+  <div class="section-title">📈 USAGE CHARTS</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Seats: Active vs Total</div>
+      <div class="chart-wrap"><canvas id="seatsChart"></canvas></div>
     </div>
-
-    <div class="grid grid-cols-4 gap-4 mb-6">
-      <div class="kpi-card">
-        <div class="kpi-label">Seats</div>
-        <div class="kpi-value text-indigo-700">21</div>
-        <div class="kpi-sub">All assigned</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Active Members</div>
-        <div class="kpi-value text-emerald-700">21</div>
-        <div class="kpi-sub">of 21 total</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Monthly Cost</div>
-        <div class="kpi-value text-gray-900">$525</div>
-        <div class="kpi-sub">Projected</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Next Billing</div>
-        <div class="kpi-value" style="font-size:1.25rem">2026-05-02</div>
-        <div class="kpi-sub">Team plan</div>
-      </div>
-    </div>
-
-    <h3 class="font-semibold text-gray-700 mb-3">👥 Members (21)</h3>
-    <div class="overflow-x-auto rounded-lg border">
-      <table>
-        <thead><tr>
-          <th>Name / Email</th>
-          <th class="text-center">Role</th>
-          <th class="text-center">Tier</th>
-          <th class="text-center">Status</th>
-        </tr></thead>
-        <tbody>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Abuthahir</div>
-              <div class="text-xs text-gray-400">Abuthahir.Kamaluden@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Ahmed</div>
-              <div class="text-xs text-gray-400">ahmed.abouzaid@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Ahmed Adil</div>
-              <div class="text-xs text-gray-400">ahmed.adil@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">amousa</div>
-              <div class="text-xs text-gray-400">amousa@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Owner</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Bahaa</div>
-              <div class="text-xs text-gray-400">bahaa.mohamed@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Dalia</div>
-              <div class="text-xs text-gray-400">dalia.salah@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Energy</div>
-              <div class="text-xs text-gray-400">engy.ahmed@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Hussein</div>
-              <div class="text-xs text-gray-400">Hussein.Firas@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Mohammed Yasser</div>
-              <div class="text-xs text-gray-400">i-mohamed.yasser@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Fotopia IT Manager</div>
-              <div class="text-xs text-gray-400">it.manager@win-holding.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Primary owner</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Kerolos</div>
-              <div class="text-xs text-gray-400">Kerolos.Elnesr@win-holding.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Mohamed Salah</div>
-              <div class="text-xs text-gray-400">Mohamed.Salah@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Muzamil Siddiqui</div>
-              <div class="text-xs text-gray-400">Muzamil.Siddiqui@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Nour Helal</div>
-              <div class="text-xs text-gray-400">nour.helal@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">omar</div>
-              <div class="text-xs text-gray-400">omar.mohamed@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Omar</div>
-              <div class="text-xs text-gray-400">omar.saeed@music-yard.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Rozia</div>
-              <div class="text-xs text-gray-400">rozia.aslam@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Sameh Amnoun</div>
-              <div class="text-xs text-gray-400">sameh.amnoun@fotopiatech.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Shahad Bayram</div>
-              <div class="text-xs text-gray-400">Shahad.Bayram@infasme.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Sylvia</div>
-              <div class="text-xs text-gray-400">Sylvia.Naguib@win-holding.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">Yasmina</div>
-              <div class="text-xs text-gray-400">Yasmina.Elzeki@win-holding.com</div>
-            </td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">User</td>
-            <td class="px-4 py-3 text-center text-sm text-gray-600">Standard</td>
-            <td class="px-4 py-3 text-center">
-              <span class="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 capitalize">active</span>
-            </td>
-          </tr></tbody>
-      </table>
+    <div class="chart-card">
+      <div class="chart-title">Cost Distribution ($) — Total $2,033.18 (Cursor Apr 1–13 + Claude Apr)</div>
+      <div class="chart-wrap"><canvas id="costChart"></canvas></div>
     </div>
   </div>
 
-  <!-- ══════════════════ GEMINI SECTION ══════════════════ -->
-  <div class="bg-white rounded-2xl shadow p-6 mb-8">
-    <div class="section-header">
-      <div class="section-icon" style="background:#f0fdf4">✨</div>
-      <div>
-        <div class="section-title">Gemini (Google Workspace)</div>
-        <div class="section-sub">Google Workspace · Included at no extra cost</div>
-      </div>
+  <!-- CURSOR MEMBER TABLE -->
+  <div class="section-title">⚡ CURSOR — MEMBER DETAILS</div>
+  <div class="tool-header cursor">⚡ CURSOR (Business) · Team Members <span class="pill">9 seats · 5 active</span></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Name</th><th>Email</th><th>Role</th>
+        <th>Seat Cost</th><th>On-Demand</th><th>Total Cost</th>
+        <th>Included Usage</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-alert">MS</div><strong>Mohamed Salah</strong></div></td>
+          <td style="color:#64748b">mohamed.salah@infasme.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-high">$1,130.96 🚨</td>
+          <td><strong style="color:#f87171">$1,150.96</strong></td>
+          <td style="color:#64748b">$105.20</td>
+          <td><span class="status blocked">🚫 Blocked</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">OE</div><strong>Omar Alaa Elnahass</strong></div></td>
+          <td style="color:#64748b">i-omar.alaa@fotopiatech.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-active">$197.22</td>
+          <td><strong>$217.22</strong></td>
+          <td style="color:#64748b">$102.80</td>
+          <td><span class="status active">✅ Active</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">DL</div><strong>Daniel Lewis</strong></div></td>
+          <td style="color:#64748b">daniel.lewis@fotopiatech.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$53.43</td>
+          <td><span class="status active">✅ Active</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">DA</div><strong>Deema Ayman</strong></div></td>
+          <td style="color:#64748b">deema.ayman@fotopiatech.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$16.63</td>
+          <td><span class="status active">✅ Active</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">SA</div><strong>Sameh Amnoun</strong></div></td>
+          <td style="color:#64748b">samehamnoun@gmail.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$1.92</td>
+          <td><span class="status active">✅ Active</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">AH</div><strong>Ahmed Himdan</strong></div></td>
+          <td style="color:#64748b">ahmed.adil@infasme.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$0.00</td>
+          <td><span class="status inactive">🚫 Inactive</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">AM</div><strong>Amousa</strong></div></td>
+          <td style="color:#64748b">amousa@infasme.com</td>
+          <td>Member</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$0.00</td>
+          <td><span class="status inactive">🚫 Inactive</span></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">NH</div><strong>Nourhan Hosny</strong></div></td>
+          <td style="color:#64748b">nourhan.hosny@fotopiatech.com</td>
+          <td>Owner</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$0.00</td>
+          <td><span class="status inactive">🚫 Inactive</span></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">IM</div><strong>IT Manager</strong></div></td>
+          <td style="color:#64748b">it.manager@win-holding.com</td>
+          <td>Owner</td>
+          <td>$20.00</td>
+          <td class="spend-zero">—</td>
+          <td><strong>$20.00</strong></td>
+          <td style="color:#64748b">$0.00</td>
+          <td><span class="status inactive">🚫 Inactive</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-bar cursor">💡 <strong>Cost note:</strong> Subscription = $20/seat/month. On-demand = extra usage beyond included quota (billed in arrears). Current cycle: Apr 1 – May 1, 2026. Analytics period: Mar 14 → Apr 13, 2026. Per-user agent lines unavailable (leaderboard API error — using team aggregates). 2 users currently blocked due to on-demand spend limit.</div>
+  </div>
+
+  <!-- CLAUDE MEMBER TABLE -->
+  <div class="section-title">🤖 CLAUDE — MEMBER DETAILS</div>
+  <div class="tool-header claude">🤖 CLAUDE (Anthropic) · Team Members <span class="pill">21 seats · 21 active</span></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Seat Tier</th><th>Cost/Seat</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AK</div><strong>Abuthahir Kamaluden</strong></div></td><td style="color:#64748b">Abuthahir.Kamaluden@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>2</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AA</div><strong>Ahmed Abouzaid</strong></div></td><td style="color:#64748b">ahmed.abouzaid@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>3</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AI</div><strong>Ahmed Adil</strong></div></td><td style="color:#64748b">ahmed.adil@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>4</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AM</div><strong>Amousa</strong></div></td><td style="color:#64748b">amousa@infasme.com</td><td>Owner</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>5</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">BM</div><strong>Bahaa Mohamed</strong></div></td><td style="color:#64748b">bahaa.mohamed@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>6</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">DS</div><strong>Dalia Salah</strong></div></td><td style="color:#64748b">dalia.salah@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>7</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">EA</div><strong>Engy Ahmed</strong></div></td><td style="color:#64748b">engy.ahmed@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>8</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">HF</div><strong>Hussein Firas</strong></div></td><td style="color:#64748b">Hussein.Firas@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>9</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MY</div><strong>Mohammed Yasser</strong></div></td><td style="color:#64748b">i-mohamed.yasser@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>10</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">FM</div><strong>Fotopia IT Manager</strong></div></td><td style="color:#64748b">it.manager@win-holding.com</td><td>Primary Owner</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>11</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">KE</div><strong>Kerolos Elnesr</strong></div></td><td style="color:#64748b">Kerolos.Elnesr@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>12</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MS</div><strong>Mohamed Salah</strong></div></td><td style="color:#64748b">Mohamed.Salah@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>13</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MZ</div><strong>Muzamil Siddiqui</strong></div></td><td style="color:#64748b">Muzamil.Siddiqui@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>14</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">NH</div><strong>Nour Helal</strong></div></td><td style="color:#64748b">nour.helal@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>15</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">OM</div><strong>Omar Mohamed</strong></div></td><td style="color:#64748b">omar.mohamed@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>16</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">OS</div><strong>Omar Saeed</strong></div></td><td style="color:#64748b">omar.saeed@music-yard.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>17</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">RA</div><strong>Rozia Aslam</strong></div></td><td style="color:#64748b">rozia.aslam@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>18</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SA</div><strong>Sameh Amnoun</strong></div></td><td style="color:#64748b">sameh.amnoun@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>19</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SB</div><strong>Shahad Bayram</strong></div></td><td style="color:#64748b">Shahad.Bayram@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>20</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SN</div><strong>Sylvia Naguib</strong></div></td><td style="color:#64748b">Sylvia.Naguib@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>21</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">YE</div><strong>Yasmina Elzeki</strong></div></td><td style="color:#64748b">Yasmina.Elzeki@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note-bar claude">💡 Per-user activity not available in Claude admin — Anthropic does not expose usage metrics per seat in the Team plan. Data as of Apr 13, 2026 live fetch.</div>
+  </div>
+
+  <!-- COST SUMMARY -->
+  <div class="section-title">💰 MONTHLY COST SUMMARY</div>
+  <div class="total-banner">
+    <div>
+      <div class="label">Total AI Spend (Cursor cycle-to-date + Claude)</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:3px">Cursor Apr 1–13 + Claude April 2026</div>
     </div>
-    <div class="grid grid-cols-3 gap-4 mb-4">
-      <div class="kpi-card">
-        <div class="kpi-label">Eligible Users</div>
-        <div class="kpi-value text-indigo-700">10</div>
-        <div class="kpi-sub">Google Workspace users</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Active Users</div>
-        <div class="kpi-value text-gray-400">0</div>
-        <div class="kpi-sub">No usage recorded</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Adoption Rate</div>
-        <div class="kpi-value text-gray-400">0%</div>
-        <div class="kpi-sub">Opportunity to grow</div>
-      </div>
-    </div>
-    <div class="alert-banner">
-      ℹ️ Included in Workspace plan — co extra cost — No additional cost. Consider driving adoption to maximize value.
+    <div style="text-align:right">
+      <div class="amount">$2,033.18</div>
+      <div class="note">⚠️ Cursor on-demand is <strong>$1,328.18</strong> in 13 days — projected monthly: ~$3,065+. Data updated Apr 13, 2026 (live fetch)</div>
     </div>
   </div>
 
-  <!-- ══════════════════ FOOTER ══════════════════ -->
-  <div style="text-align:center;color:#9ca3af;font-size:.75rem;padding-bottom:2rem">
-    Generated automatically · 2026-04-14 06:14 UTC · Fotopia Dev Team
+  <!-- INSIGHTS -->
+  <div class="section-title">💡 KEY INSIGHTS &amp; RECOMMENDATIONS</div>
+  <div class="insights">
+    <div class="insight danger">
+      <div class="insight-title">🚨 CRITICAL — On-Demand Limit Reached, 2 Users Blocked</div>
+      <div class="insight-text">The team has hit 100% of the Cursor on-demand usage limit. 2 users are currently blocked from making requests. Mohamed Salah accounts for $1,130.96 of $1,328.18 total on-demand charges (85%). Immediately increase the limit or set per-user caps. Consider switching Mohamed Salah to a cheaper model for routine tasks.</div>
+    </div>
+    <div class="insight danger">
+      <div class="insight-title">🚨 URGENT — Cursor On-Demand Spend Trending High</div>
+      <div class="insight-text">At $1,328.18 on-demand in just 13 days of April, the monthly projection is ~$3,065 on-demand alone. Combined with $180 in seat costs and $525 for Claude, total AI spend could reach ~$3,770 for April. Enforce model selection policies and review usage now.</div>
+    </div>
+    <div class="insight good">
+      <div class="insight-title">✅ Cursor — Strong Productivity Output</div>
+      <div class="insight-text">Team generated 277.1K total agent lines accepted (30-day period), up from 198.3K last week. 7,687 composer diffs accepted and 351 tab completions accepted. AI-assisted development is clearly driving output — the challenge is cost control.</div>
+    </div>
+    <div class="insight good">
+      <div class="insight-title">✅ Claude — Fully Utilized</div>
+      <div class="insight-text">All 21 seats occupied and active (100% utilization). Monthly cost stable at $525 ($25/seat × 21 seats). Next billing May 2, 2026. No changes in member roster this cycle.</div>
+    </div>
+    <div class="insight warn">
+      <div class="insight-title">⚠️ Google Gemini — Zero Usage</div>
+      <div class="insight-text">10 users are eligible but none have used Gemini in 30 days. Included in the Workspace plan at no extra cost, but value is unrealized. Recommend scheduling an adoption workshop.</div>
+    </div>
+    <div class="insight warn">
+      <div class="insight-title">⚠️ Cursor Inactive Seats — 44%</div>
+      <div class="insight-text">4 of 9 Cursor seats are inactive (Ahmed Himdan, Amousa, Nourhan Hosny, IT Manager). 1 seat was removed since last report (Asmaa Mohamed). Consider reassigning remaining inactive seats to offset the on-demand cost spike.</div>
+    </div>
   </div>
 
-</div>
+</div><!-- /main -->
+
+<footer>
+  AI Tools Usage Dashboard · Fotopia Development Team · Data from Cursor API + Claude Admin · Auto-updated daily via Cowork &amp; GitHub Actions ·
+  <a href="https://github.com/nurhanhossny-ai/AItools-dashboard">github.com/nurhanhossny-ai/AItools-dashboard</a>
+</footer>
+
+<script>
+// Live clock
+function updateClock() {
+  const now = new Date();
+  const h = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('liveClock').textContent = '⏰ ' + h;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Period buttons
+function setPeriod(days, btn) {
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const now = new Date();
+  const from = new Date(now - days * 86400000);
+  document.getElementById('fromDate').value = from.toISOString().split('T')[0];
+  document.getElementById('toDate').value = now.toISOString().split('T')[0];
+  document.getElementById('showingLabel').textContent =
+    from.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' – ' +
+    now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+function applyCustom() {
+  const from = new Date(document.getElementById('fromDate').value);
+  const to = new Date(document.getElementById('toDate').value);
+  document.getElementById('showingLabel').textContent =
+    from.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' – ' +
+    to.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+// Charts
+const seatsData = {"labels": ["Cursor", "Claude", "Gemini"], "active": [5, 21, 0], "total": [9, 21, 10]};
+new Chart(document.getElementById('seatsChart'), {
+  type: 'bar',
+  data: {
+    labels: seatsData.labels,
+    datasets: [
+      {label:'Active',data:seatsData.active,backgroundColor:['#0096c7','#7c3aed','#d97706'],borderRadius:6},
+      {label:'Total Seats',data:seatsData.total,backgroundColor:['rgba(0,150,199,.2)','rgba(124,58,237,.2)','rgba(217,119,6,.2)'],borderRadius:6}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#94a3b8',font:{size:11}}}},scales:{x:{ticks:{color:'#64748b'},grid:{color:'#1e293b'}},y:{ticks:{color:'#64748b'},grid:{color:'#1e293b'}}}}
+});
+
+const costData = {"labels": ["Cursor Seats", "Cursor On-Demand", "Claude"], "values": [180.0, 1328.18, 525], "colors": ["#0096c7", "#dc2626", "#7c3aed"]};
+new Chart(document.getElementById('costChart'), {
+  type: 'doughnut',
+  data: {
+    labels: costData.labels,
+    datasets:[{data:costData.values,backgroundColor:costData.colors,borderWidth:0,hoverOffset:8}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11},padding:12}}}}
+});
+</script>
 </body>
 </html>

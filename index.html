@@ -8,7 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);border-bottom:1px solid #1e3a5f;iadding:20px 32px}
+header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);border-bottom:1px solid #1e3a5f;padding:20px 32px}
 .header-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px}
 .header-title span{color:#38bdf8}
 .header-subtitle{font-size:13px;color:#64748b;margin-bottom:12px}
@@ -102,95 +102,7 @@ tr:last-child td{border-bottom:none}
 .total-banner{background:linear-gradient(135deg,#0c2340,#0a1628);border:1px solid #1e4a7a;border-radius:12px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
 .total-banner .label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px}
 .total-banner .amount{font-size:38px;font-weight:900;color:#38bdf8}
-.total-banner .note{font-size:11px;color:#64748b;margin-top:4px}
-.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;margin-top:4px}
-.insight{border-radius:10px;padding:16px 18px;border-left:4px solid}
-.insight.danger{background:#1a0505;border-color:#dc2626}
-.insight.good{background:#051a0f;border-color:#16a34a}
-.insight.warn{background:#1a1205;border-color:#d97706}
-.insight-title{font-size:13px;font-weight:700;margin-bottom:6px}
-.insight.danger .insight-title{color:#f87171}
-.insight.good .insight-title{color:#4ade80}
-.insight.warn .insight-title{color:#fbbf24}
-.insight-text{font-size:12px;color:#94a3b8;line-height:1.6}
-.note-bar{padding:10px 16px;font-size:11px;color:#64748b;border-top:1px solid #1e3a5f}
-.note-bar.cursor{background:#071624}
-.note-bar.claude{background:#0d0521}
-footer{text-align:center;padding:20px;font-size:11px;color:#334155;border-top:1px solid #1e293b;margin-top:40px}
-footer a{color:#475569;text-decoration:none}
-@media(max-width:768px){
-  header,.period-bar,.main{padding:16px}
-  .kpi-value{font-size:22px}
-  .total-banner .amount{font-size:26px}
-}
-</style>
-</head>
-<body>
-
-<header>
-  <div class="header-title">🚀 AI Tools Usage Dashboard — <span>Fotopia Dev Team</span></div>
-  <div class="header-subtitle">Management overview of AI tool adoption, usage &amp; spend across the development team</div>
-  <div class="header-badges">
-    <span class="badge badge-live">● LIVE</span>
-    <span class="badge badge-date">📅 2026-04-13</span>
-    <span class="badge badge-domain">🏢 fotopiatech.com · infasme.com · win-holding.com · music-yard.com</span>
-    <span class="badge badge-clock" id="liveClock">⏰ --:--:--</span>
-    <span class="badge badge-alert">🚨 ON-DEMAND LIMIT REACHED</span>
-  </div>
-</header>
-
-<div class="period-bar">
-  <div class="period-left">
-    <span class="period-label">📅 Period:</span>
-    <button class="period-btn" onclick="setPeriod(7,this)">Last 7 Days</button>
-    <button class="period-btn active" onclick="setPeriod(30,this)">Last 30 Days</button>
-    <button class="period-btn" onclick="setPeriod(90,this)">Last 90 Days</button>
-    <span class="period-custom">
-      From <input type="date" id="fromDate" value="2026-03-14">
-      To <input type="date" id="toDate" value="2026-04-13">
-      <button onclick="applyCustom()">Apply</button>
-    </span>
-  </div>
-  <div class="period-showing">Showing: <strong id="showingLabel">Mar 14, 2026 – Apr 13, 2026</strong></div>
-</div>
-
-<div class="main">
-
-  <!-- ALERTS -->
-  <div style="background:#1a0505;border:1px solid #7f1d1d;border-radius:10px;padding:14px 18px;margin-bottom:20px">
-    <div style="color:#f87171;font-weight:700;font-size:13px;margin-bottom:6px">🚨 ALERT — Cursor On-Demand Limit Reached · 2 Users Blocked</div>
-    <div style="font-size:12px;color:#94a3b8">The team has reached <strong style="color:#f87171">100% of the on-demand usage limit</strong> and <strong style="color:#f87171">2 users are currently blocked</strong> from making additional requests. Mohamed Salah leads with <strong style="color:#f87171">$1,130.96</strong> in on-demand charges this billing cycle (Apr 1 – present). Total on-demand this cycle: <strong style="color:#f87171">$1,328.18</strong>. Review model usage and configure limits immediately.</div>
-  </div>
-
-  <!-- KPI CARDS -->
-  <div class="section-title">📊 KEY METRICS OVERVIEW</div>
-  <div class="kpi-grid">
-    <div class="kpi alert">
-      <div class="kpi-tool">⚡ Cursor</div>
-      <div class="kpi-label">Total Cycle Spend</div>
-      <div class="kpi-value">$1,508</div>
-      <div class="kpi-sub">$180 seats + $1,328.18 on-demand (Apr 1–13)</div>
-    </div>
-    <div class="kpi cursor">
-      <div class="kpi-tool">⚡ Cursor</div>
-      <div class="kpi-label">Total Agent Lines (30d)</div>
-      <div class="kpi-value">277.1K</div>
-      <div class="kpi-sub">Composer accepted lines across team (last 30 days)</div>
-    </div>
-    <div class="kpi cursor">
-      <div class="kpi-tool">⚡ Cursor</div>
-      <div class="kpi-label">Active / Total Seats</div>
-      <div class="kpi-value">5/9</div>
-      <div class="kpi-sub">56% seat utilization · 1 seat removed vs last week</div>
-    </div>
-    <div class="kpi claude">
-      <div class="kpi-tool">🤖 Claude</div>
-      <div class="kpi-label">Active Members</div>
-      <div class="kpi-value">21/21</div>
-      <div class="kpi-sub">All members active · 100% utilization</div>
-    </div>
-    <div class="kpi claude">
-      <div class="kpi-tool">🤖 Claude</div>
+.total-balass="kpi-tool">🤖 Claude</div>
       <div class="kpi-label">Monthly Cost</div>
       <div class="kpi-value">$525</div>
       <div class="kpi-sub">$25/seat × 21 seats · Next billing May 2</div>
@@ -210,7 +122,7 @@ footer a{color:#475569;text-decoration:none}
       <div class="perf-header"><span class="perf-tool-badge">🚨 CURSOR — HIGHEST ON-DEMAND SPEND</span><span class="perf-medal">⚠️</span></div>
       <div class="perf-user"><div class="avatar lg av-alert">MS</div><div><div class="perf-name">Mohamed Salah</div><div class="perf-email">mohamed.salah@infasme.com</div></div></div>
       <div class="perf-stats">
-        <div class="perf-stat"><div class="ps-val" style="color:#f87171">$1,130.96</div><div class="ps-lbl">On-Demand</div></div>
+        <div class="perf-stat"><div class="ps-val" style="color:#f87171">$1,133.01</div><div class="ps-lbl">On-Demand</div></div>
         <div class="perf-stat"><div class="ps-val">2,303</div><div class="ps-lbl">Agent Requests</div></div>
         <div class="perf-stat"><div class="ps-val">7,687</div><div class="ps-lbl">Diff Accepts</div></div>
       </div>
@@ -220,7 +132,7 @@ footer a{color:#475569;text-decoration:none}
       <div class="perf-user"><div class="avatar lg av-cursor">OE</div><div><div class="perf-name">Omar Alaa Elnahass</div><div class="perf-email">i-omar.alaa@fotopiatech.com</div></div></div>
       <div class="perf-stats">
         <div class="perf-stat"><div class="ps-val">$197.22</div><div class="ps-lbl">On-Demand</div></div>
-        <div class="perf-stat"><div class="ps-val">277.1K</div><div class="ps-lbl">Team Lines</div></div>
+        <div class="perf-stat"><div class="ps-val">257.9K</div><div class="ps-lbl">Team Lines</div></div>
         <div class="perf-stat"><div class="ps-val">351</div><div class="ps-lbl">Tab Accepts</div></div>
       </div>
     </div>
@@ -252,7 +164,7 @@ footer a{color:#475569;text-decoration:none}
       <div class="chart-wrap"><canvas id="seatsChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Cost Distribution ($) — Total $2,033.18 (Cursor Apr 1–13 + Claude Apr)</div>
+      <div class="chart-title">Cost Distribution ($) — Total $2,033.18 (Cursor Apr 1–15 + Claude Apr)</div>
       <div class="chart-wrap"><canvas id="costChart"></canvas></div>
     </div>
   </div>
@@ -274,7 +186,7 @@ footer a{color:#475569;text-decoration:none}
           <td style="color:#64748b">mohamed.salah@infasme.com</td>
           <td>Member</td>
           <td>$20.00</td>
-          <td class="spend-high">$1,130.96 🚨</td>
+          <td class="spend-high">$1,133.01 🚨</td>
           <td><strong style="color:#f87171">$1,150.96</strong></td>
           <td style="color:#64748b">$105.20</td>
           <td><span class="status blocked">🚫 Blocked</span></td>
@@ -298,7 +210,7 @@ footer a{color:#475569;text-decoration:none}
           <td>$20.00</td>
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
-          <td style="color:#64748b">$53.43</td>
+          <td style="color:#64748b">$68.90</td>
           <td><span class="status active">✅ Active</span></td>
         </tr>
         <tr>
@@ -309,7 +221,7 @@ footer a{color:#475569;text-decoration:none}
           <td>$20.00</td>
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
-          <td style="color:#64748b">$16.63</td>
+          <td style="color:#64748b">$24.39</td>
           <td><span class="status active">✅ Active</span></td>
         </tr>
         <tr>
@@ -369,7 +281,7 @@ footer a{color:#475569;text-decoration:none}
         </tr>
       </tbody>
     </table>
-    <div class="note-bar cursor">💡 <strong>Cost note:</strong> Subscription = $20/seat/month. On-demand = extra usage beyond included quota (billed in arrears). Current cycle: Apr 1 – May 1, 2026. Analytics period: Mar 14 → Apr 13, 2026. Per-user agent lines unavailable (leaderboard API error — using team aggregates). 2 users currently blocked due to on-demand spend limit.</div>
+    <div class="note-bar cursor">💡 <strong>Cost note:</strong> Subscription = $20/seat/month. On-demand = extra usage beyond included quota (billed in arrears). Current cycle: Apr 1 – May 1, 2026. Analytics period: Mar 14 → Apr 15, 2026. Per-user agent lines unavailable (leaderboard API error — using team aggregates). 2 users currently blocked due to on-demand spend limit.</div>
   </div>
 
   <!-- CLAUDE MEMBER TABLE -->
@@ -402,19 +314,19 @@ footer a{color:#475569;text-decoration:none}
         <tr><td>21</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">YE</div><strong>Yasmina Elzeki</strong></div></td><td style="color:#64748b">Yasmina.Elzeki@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
       </tbody>
     </table>
-    <div class="note-bar claude">💡 Per-user activity not available in Claude admin — Anthropic does not expose usage metrics per seat in the Team plan. Data as of Apr 13, 2026 live fetch.</div>
+    <div class="note-bar claude">💡 Per-user activity not available in Claude admin — Anthropic does not expose usage metrics per seat in the Team plan. Data as of Apr 15, 2026 live fetch.</div>
   </div>
 
   <!-- COST SUMMARY -->
   <div class="section-title">💰 MONTHLY COST SUMMARY</div>
   <div class="total-banner">
     <div>
-      <div class="label">Total AI Spend (Cursor cycle-to-date + Claude)</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:3px">Cursor Apr 1–13 + Claude April 2026</div>
+      <div class="label">Total AI Spend (Cursor + Claude — April 2026)</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:3px">Cursor Apr 1–15 ($357.80 seats + $45 cap) + Claude $525 · Apr 15, 2026</div>
     </div>
     <div style="text-align:right">
-      <div class="amount">$2,033.18</div>
-      <div class="note">⚠️ Cursor on-demand is <strong>$1,328.18</strong> in 13 days — projected monthly: ~$3,065+. Data updated Apr 13, 2026 (live fetch)</div>
+      <div class="amount">$927.80</div>
+      <div class="note">✅ Cursor hard cap ($45) limits on-demand cost despite $1,330.22 raw usage. Cursor refunding $1,285.22 overage. Data updated Apr 15, 2026 (live fetch)</div>
     </div>
   </div>
 
@@ -423,19 +335,19 @@ footer a{color:#475569;text-decoration:none}
   <div class="insights">
     <div class="insight danger">
       <div class="insight-title">🚨 CRITICAL — On-Demand Limit Reached, 2 Users Blocked</div>
-      <div class="insight-text">The team has hit 100% of the Cursor on-demand usage limit. 2 users are currently blocked from making requests. Mohamed Salah accounts for $1,130.96 of $1,328.18 total on-demand charges (85%). Immediately increase the limit or set per-user caps. Consider switching Mohamed Salah to a cheaper model for routine tasks.</div>
+      <div class="insight-text">The team has hit 100% of the Cursor on-demand usage limit. 2 users are currently blocked from making requests. Mohamed Salah accounts for $1,133.01 of $1,330.22 total on-demand charges (85%). Immediately increase the limit or set per-user caps. Consider switching Mohamed Salah to a cheaper model for routine tasks.</div>
     </div>
     <div class="insight danger">
       <div class="insight-title">🚨 URGENT — Cursor On-Demand Spend Trending High</div>
-      <div class="insight-text">At $1,328.18 on-demand in just 13 days of April, the monthly projection is ~$3,065 on-demand alone. Combined with $180 in seat costs and $525 for Claude, total AI spend could reach ~$3,770 for April. Enforce model selection policies and review usage now.</div>
+      <div class="insight-text">At $1,330.22 on-demand in just 13 days of April, the monthly projection is ~$3,065 on-demand alone. Combined with $180 in seat costs and $525 for Claude, total AI spend could reach ~$3,770 for April. Enforce model selection policies and review usage now.</div>
     </div>
     <div class="insight good">
-      <div class="insight-title">✅ Cursor — Strong Productivity Output</div>
-      <div class="insight-text">Team generated 277.1K total agent lines accepted (30-day period), up from 198.3K last week. 7,687 composer diffs accepted and 351 tab completions accepted. AI-assisted development is clearly driving output — the challenge is cost control.</div>
+      <div class="insight-title">✅ Cursor igBTVb Strong Productivity Output</div>
+      <div class="insight-text">Team generated 257.9K total agent lines accepted (30-day period), up from 198.3K last week. 7,687 composer diffs accepted and 351 tab completions accepted. AI-assisted development is clearly driving output — the challenge is cost control.</div>
     </div>
     <div class="insight good">
       <div class="insight-title">✅ Claude — Fully Utilized</div>
-      <div class="insight-text">All 21 seats occupied and active (100% utilization). Monthly cost stable at $525 ($25/seat × 21 seats). Next billing May 2, 2026. No changes in member roster this cycle.</div>
+      <div class="insight-text">All 21 seats occupied and active (100% utilization). Monthly cost stable at $525 ($25/seat × 21 seats). Next billing May 2, 2026. Extra usage balance: $174.82 available. No changes in member roster this cycle.</div>
     </div>
     <div class="insight warn">
       <div class="insight-title">⚠️ Google Gemini — Zero Usage</div>

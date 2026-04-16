@@ -19,6 +19,7 @@ header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);bo
 .badge-domain{background:#1e293b;border:1px solid #334155;color:#94a3b8}
 .badge-clock{background:#1e293b;border:1px solid #334155;color:#38bdf8;font-family:monospace}
 .badge-alert{background:#450a0a;border:1px solid #dc2626;color:#f87171}
+.badge-new{background:#052e16;border:1px solid #16a34a;color:#4ade80}
 .period-bar{background:#131f35;border-bottom:1px solid #1e3a5f;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .period-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .period-label{font-size:13px;color:#94a3b8;font-weight:600}
@@ -39,17 +40,20 @@ header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);bo
 .kpi.claude{border-top-color:#7c3aed}
 .kpi.gemini{border-top-color:#d97706}
 .kpi.alert{border-top-color:#dc2626;border-color:#7f1d1d}
+.kpi.new{border-top-color:#16a34a;border-color:#166534}
 .kpi-tool{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
 .kpi.cursor .kpi-tool{color:#0096c7}
 .kpi.claude .kpi-tool{color:#a78bfa}
 .kpi.gemini .kpi-tool{color:#fbbf24}
 .kpi.alert .kpi-tool{color:#f87171}
+.kpi.new .kpi-tool{color:#4ade80}
 .kpi-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .kpi-value{font-size:30px;font-weight:800;color:#fff;line-height:1;margin-bottom:4px}
 .kpi.cursor .kpi-value{color:#38bdf8}
 .kpi.claude .kpi-value{color:#c4b5fd}
 .kpi.gemini .kpi-value{color:#fcd34d}
 .kpi.alert .kpi-value{color:#f87171}
+.kpi.new .kpi-value{color:#4ade80}
 .kpi-sub{font-size:11px;color:#475569}
 .performers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .performer-card{background:#1e293b;border-radius:12px;border:1px solid #334155;overflow:hidden}
@@ -57,12 +61,14 @@ header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);bo
 .performer-card.claude{border-top:3px solid #7c3aed}
 .performer-card.gemini{border-top:3px solid #d97706}
 .performer-card.alert{border-top:3px solid #dc2626}
+.performer-card.new{border-top:3px solid #16a34a}
 .perf-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(0,0,0,.2)}
 .perf-tool-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .performer-card.cursor .perf-tool-badge{color:#38bdf8}
 .performer-card.claude .perf-tool-badge{color:#a78bfa}
 .performer-card.gemini .perf-tool-badge{color:#fbbf24}
 .performer-card.alert .perf-tool-badge{color:#f87171}
+.performer-card.new .perf-tool-badge{color:#4ade80}
 .perf-medal{font-size:18px}
 .perf-user{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #1a2942}
 .perf-name{font-weight:700;font-size:14px;color:#fff}
@@ -77,6 +83,7 @@ header{background:linear-gradient(135deg,#0f172a 0%,#1e2d4a 60%,#0c2040 100%);bo
 .av-claude{background:linear-gradient(135deg,#7c3aed,#4c1d95);color:#fff}
 .av-gemini{background:linear-gradient(135deg,#d97706,#92400e);color:#fff}
 .av-alert{background:linear-gradient(135deg,#dc2626,#7f1d1d);color:#fff}
+.av-new{background:linear-gradient(135deg,#16a34a,#052e16);color:#fff}
 .charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:16px}
 .chart-card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px}
 .chart-title{font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.6px;margin-bottom:16px}
@@ -95,6 +102,7 @@ tr:last-child td{border-bottom:none}
 .status.active{background:#052e16;color:#4ade80}
 .status.inactive{background:#2d1515;color:#f87171}
 .status.blocked{background:#450a0a;color:#f87171;border:1px solid #dc2626}
+.status.pending{background:#1a1a0a;color:#fbbf24;border:1px solid #d97706}
 .spend-high{color:#f87171;font-weight:700}
 .spend-active{color:#f59e0b;font-weight:600}
 .spend-low{color:#94a3b8;font-weight:600}
@@ -108,16 +116,19 @@ tr:last-child td{border-bottom:none}
 .insight.danger{background:#1a0505;border-color:#dc2626}
 .insight.good{background:#051a0f;border-color:#16a34a}
 .insight.warn{background:#1a1205;border-color:#d97706}
+.insight.info{background:#051428;border-color:#0096c7}
 .insight-title{font-size:13px;font-weight:700;margin-bottom:6px}
 .insight.danger .insight-title{color:#f87171}
 .insight.good .insight-title{color:#4ade80}
 .insight.warn .insight-title{color:#fbbf24}
+.insight.info .insight-title{color:#38bdf8}
 .insight-text{font-size:12px;color:#94a3b8;line-height:1.6}
 .note-bar{padding:10px 16px;font-size:11px;color:#64748b;border-top:1px solid #1e3a5f}
 .note-bar.cursor{background:#071624}
 .note-bar.claude{background:#0d0521}
 footer{text-align:center;padding:20px;font-size:11px;color:#334155;border-top:1px solid #1e293b;margin-top:40px}
 footer a{color:#475569;text-decoration:none}
+.new-badge{background:#052e16;color:#4ade80;border:1px solid #16a34a;border-radius:8px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:6px;vertical-align:middle}
 @media(max-width:768px){
   header,.period-bar,.main{padding:16px}
   .kpi-value{font-size:22px}
@@ -132,10 +143,11 @@ footer a{color:#475569;text-decoration:none}
   <div class="header-subtitle">Management overview of AI tool adoption, usage &amp; spend across the development team</div>
   <div class="header-badges">
     <span class="badge badge-live">● LIVE</span>
-    <span class="badge badge-date">📅 2026-04-15</span>
+    <span class="badge badge-date">📅 2026-04-16</span>
     <span class="badge badge-domain">🏢 fotopiatech.com · infasme.com · win-holding.com · music-yard.com</span>
     <span class="badge badge-clock" id="liveClock">⏰ --:--:--</span>
     <span class="badge badge-alert">🚨 ON-DEMAND LIMIT REACHED</span>
+    <span class="badge badge-new">🆕 +3 CLAUDE SEATS</span>
   </div>
 </header>
 
@@ -146,20 +158,24 @@ footer a{color:#475569;text-decoration:none}
     <button class="period-btn active" onclick="setPeriod(30,this)">Last 30 Days</button>
     <button class="period-btn" onclick="setPeriod(90,this)">Last 90 Days</button>
     <span class="period-custom">
-      From <input type="date" id="fromDate" value="2026-03-16">
-      To <input type="date" id="toDate" value="2026-04-15">
+      From <input type="date" id="fromDate" value="2026-03-18">
+      To <input type="date" id="toDate" value="2026-04-16">
       <button onclick="applyCustom()">Apply</button>
     </span>
   </div>
-  <div class="period-showing">Showing: <strong id="showingLabel">Mar 16, 2026 – Apr 15, 2026</strong></div>
+  <div class="period-showing">Showing: <strong id="showingLabel">Mar 18, 2026 – Apr 16, 2026</strong></div>
 </div>
 
 <div class="main">
 
   <!-- ALERTS -->
-  <div style="background:#1a0505;border:1px solid #7f1d1d;border-radius:10px;padding:14px 18px;margin-bottom:20px">
+  <div style="background:#1a0505;border:1px solid #7f1d1d;border-radius:10px;padding:14px 18px;margin-bottom:12px">
     <div style="color:#f87171;font-weight:700;font-size:13px;margin-bottom:6px">🚨 ALERT — Cursor On-Demand Limit Reached · 2 Users Blocked</div>
-    <div style="font-size:12px;color:#94a3b8">The team has reached <strong style="color:#f87171">100% of the on-demand usage limit</strong> and <strong style="color:#f87171">2 users are currently blocked</strong> from making additional requests. Mohamed Salah leads with <strong style="color:#f87171">$1,133.01</strong> in on-demand charges this billing cycle (Apr 1 – present). Total on-demand this cycle: <strong style="color:#f87171">$1,330.22</strong>. Review model usage and configure limits immediately.</div>
+    <div style="font-size:12px;color:#94a3b8">The team has reached <strong style="color:#f87171">100% of the on-demand usage limit</strong> and <strong style="color:#f87171">2 users are currently blocked</strong> from making additional requests. Mohamed Salah leads with <strong style="color:#f87171">$1,133.46</strong> in on-demand charges this billing cycle (Apr 1 – present). Total on-demand this cycle: <strong style="color:#f87171">$1,330.67</strong>. Hard limit: $45 (capped &amp; refunded). Review model usage and configure limits immediately.</div>
+  </div>
+  <div style="background:#051428;border:1px solid #1e4a7a;border-radius:10px;padding:14px 18px;margin-bottom:20px">
+    <div style="color:#38bdf8;font-weight:700;font-size:13px;margin-bottom:6px">🆕 CLAUDE — 3 New Seats Added Today (21 → 24)</div>
+    <div style="font-size:12px;color:#94a3b8">3 new seats provisioned: <strong style="color:#e2e8f0">Mohan KV</strong> (mohan.kv@win-holding.com, Active) + 2 pending invites: abdelfattah.abdelgalil@win-holding.com &amp; hisham.medhat@win-holding.com. Monthly cost increases from $525 → <strong style="color:#c4b5fd">$600</strong> ($25 × 24 seats) effective May 2, 2026.</div>
   </div>
 
   <!-- KPI CARDS -->
@@ -167,33 +183,33 @@ footer a{color:#475569;text-decoration:none}
   <div class="kpi-grid">
     <div class="kpi alert">
       <div class="kpi-tool">⚡ Cursor</div>
-      <div class="kpi-label">Total Cycle Spend</div>
-      <div class="kpi-value">$405</div>
-      <div class="kpi-sub">$180 seats + $1,330.22 on-demand (Apr 1–15)</div>
+      <div class="kpi-label">On-Demand Usage (Raw)</div>
+      <div class="kpi-value">$1,331</div>
+      <div class="kpi-sub">$1,330.67 total · capped at $45 hard limit · Apr 1–16</div>
     </div>
     <div class="kpi cursor">
       <div class="kpi-tool">⚡ Cursor</div>
       <div class="kpi-label">Total Agent Lines (30d)</div>
-      <div class="kpi-value">257.9K</div>
-      <div class="kpi-sub">Composer accepted lines across team (last 30 days)</div>
+      <div class="kpi-value">330.7K</div>
+      <div class="kpi-sub">Composer accepted lines across team (Mar 18 – Apr 16) · ↑ from 257.9K</div>
     </div>
     <div class="kpi cursor">
       <div class="kpi-tool">⚡ Cursor</div>
       <div class="kpi-label">Active / Total Seats</div>
       <div class="kpi-value">5/9</div>
-      <div class="kpi-sub">56% seat utilization · 1 seat removed vs last week</div>
+      <div class="kpi-sub">56% seat utilization · 2 users currently blocked · AI share 86%</div>
+    </div>
+    <div class="kpi new">
+      <div class="kpi-tool">🤖 Claude</div>
+      <div class="kpi-label">Active / Total Seats</div>
+      <div class="kpi-value">22/24</div>
+      <div class="kpi-sub">+3 new seats today · 2 pending invitations · 92% utilization</div>
     </div>
     <div class="kpi claude">
       <div class="kpi-tool">🤖 Claude</div>
-      <div class="kpi-label">Active Members</div>
-      <div class="kpi-value">21/21</div>
-      <div class="kpi-sub">All members active · 100% utilization</div>
-    </div>
-    <div class="kpi claude">
-      <div class="kpi-tool">🤖 Claude</div>
-      <div class="kpi-label">Monthly Cost</div>
-      <div class="kpi-value">$525</div>
-      <div class="kpi-sub">$25/seat × 21 seats · Next billing May 2</div>
+      <div class="kpi-label">Monthly Cost (Projected)</div>
+      <div class="kpi-value">$600</div>
+      <div class="kpi-sub">$25/seat × 24 seats · Next billing May 2 · ↑ from $525</div>
     </div>
     <div class="kpi gemini">
       <div class="kpi-tool">🔮 Gemini</div>
@@ -210,9 +226,9 @@ footer a{color:#475569;text-decoration:none}
       <div class="perf-header"><span class="perf-tool-badge">🚨 CURSOR — HIGHEST ON-DEMAND SPEND</span><span class="perf-medal">⚠️</span></div>
       <div class="perf-user"><div class="avatar lg av-alert">MS</div><div><div class="perf-name">Mohamed Salah</div><div class="perf-email">mohamed.salah@infasme.com</div></div></div>
       <div class="perf-stats">
-        <div class="perf-stat"><div class="ps-val" style="color:#f87171">$1,133.01</div><div class="ps-lbl">On-Demand</div></div>
-        <div class="perf-stat"><div class="ps-val">2,303</div><div class="ps-lbl">Agent Requests</div></div>
-        <div class="perf-stat"><div class="ps-val">7,687</div><div class="ps-lbl">Diff Accepts</div></div>
+        <div class="perf-stat"><div class="ps-val" style="color:#f87171">$1,133.46</div><div class="ps-lbl">On-Demand</div></div>
+        <div class="perf-stat"><div class="ps-val">8,038</div><div class="ps-lbl">Accepted Diffs</div></div>
+        <div class="perf-stat"><div class="ps-val">223.6K</div><div class="ps-lbl">Tab Completions</div></div>
       </div>
     </div>
     <div class="performer-card cursor">
@@ -220,17 +236,17 @@ footer a{color:#475569;text-decoration:none}
       <div class="perf-user"><div class="avatar lg av-cursor">OE</div><div><div class="perf-name">Omar Alaa Elnahass</div><div class="perf-email">i-omar.alaa@fotopiatech.com</div></div></div>
       <div class="perf-stats">
         <div class="perf-stat"><div class="ps-val">$197.22</div><div class="ps-lbl">On-Demand</div></div>
-        <div class="perf-stat"><div class="ps-val">257.9K</div><div class="ps-lbl">Team Lines</div></div>
-        <div class="perf-stat"><div class="ps-val">351</div><div class="ps-lbl">Tab Accepts</div></div>
+        <div class="perf-stat"><div class="ps-val">1,379</div><div class="ps-lbl">Accepted Diffs</div></div>
+        <div class="perf-stat"><div class="ps-val">80.7K</div><div class="ps-lbl">Agent Lines</div></div>
       </div>
     </div>
-    <div class="performer-card claude">
-      <div class="perf-header"><span class="perf-tool-badge claude">🤖 CLAUDE — FULL TEAM ACTIVE</span><span class="perf-medal">✅</span></div>
-      <div class="perf-user"><div class="avatar lg av-claude">FM</div><div><div class="perf-name">21 of 21 Members</div><div class="perf-email">All seats occupied and active</div></div></div>
+    <div class="performer-card new">
+      <div class="perf-header"><span class="perf-tool-badge new">🤖 CLAUDE — 3 NEW SEATS TODAY</span><span class="perf-medal">🆕</span></div>
+      <div class="perf-user"><div class="avatar lg av-new">24</div><div><div class="perf-name">24 Total Seats (22 Active)</div><div class="perf-email">3 seats added Apr 16 · 2 pending invitations</div></div></div>
       <div class="perf-stats">
-        <div class="perf-stat"><div class="ps-val">21</div><div class="ps-lbl">Active</div></div>
-        <div class="perf-stat"><div class="ps-val">100%</div><div class="ps-lbl">Utilization</div></div>
-        <div class="perf-stat"><div class="ps-val">$525</div><div class="ps-lbl">Monthly</div></div>
+        <div class="perf-stat"><div class="ps-val">24</div><div class="ps-lbl">Total Seats</div></div>
+        <div class="perf-stat"><div class="ps-val">92%</div><div class="ps-lbl">Utilization</div></div>
+        <div class="perf-stat"><div class="ps-val">$600</div><div class="ps-lbl">Monthly</div></div>
       </div>
     </div>
     <div class="performer-card gemini">
@@ -252,14 +268,14 @@ footer a{color:#475569;text-decoration:none}
       <div class="chart-wrap"><canvas id="seatsChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Cost Distribution ($) — Total $2,033.18 (Cursor Apr 1–15 + Claude Apr)</div>
+      <div class="chart-title">Cost Distribution ($) — Total ~$2,111 (Cursor Apr 1–16 + Claude Apr projected)</div>
       <div class="chart-wrap"><canvas id="costChart"></canvas></div>
     </div>
   </div>
 
   <!-- CURSOR MEMBER TABLE -->
   <div class="section-title">⚡ CURSOR — MEMBER DETAILS</div>
-  <div class="tool-header cursor">⚡ CURSOR (Business) · Team Members <span class="pill">9 seats · 5 active</span></div>
+  <div class="tool-header cursor">⚡ CURSOR (Business) · Team Members <span class="pill">9 seats · 5 active · 2 blocked</span></div>
   <div class="table-wrap">
     <table>
       <thead><tr>
@@ -274,9 +290,9 @@ footer a{color:#475569;text-decoration:none}
           <td style="color:#64748b">mohamed.salah@infasme.com</td>
           <td>Member</td>
           <td>$20.00</td>
-          <td class="spend-high">$1,133.01 🚨</td>
-          <td><strong style="color:#f87171">$1,150.96</strong></td>
-          <td style="color:#64748b">$105.20</td>
+          <td class="spend-high">$1,133.46 🚨</td>
+          <td><strong style="color:#f87171">$1,153.46</strong></td>
+          <td style="color:#64748b">$20.00+</td>
           <td><span class="status blocked">🚫 Blocked</span></td>
         </tr>
         <tr>
@@ -287,7 +303,7 @@ footer a{color:#475569;text-decoration:none}
           <td>$20.00</td>
           <td class="spend-active">$197.22</td>
           <td><strong>$217.22</strong></td>
-          <td style="color:#64748b">$102.80</td>
+          <td style="color:#64748b">$20.00+</td>
           <td><span class="status active">✅ Active</span></td>
         </tr>
         <tr>
@@ -298,7 +314,7 @@ footer a{color:#475569;text-decoration:none}
           <td>$20.00</td>
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
-          <td style="color:#64748b">$68.90</td>
+          <td style="color:#64748b">$20.00+</td>
           <td><span class="status active">✅ Active</span></td>
         </tr>
         <tr>
@@ -309,7 +325,7 @@ footer a{color:#475569;text-decoration:none}
           <td>$20.00</td>
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
-          <td style="color:#64748b">$24.39</td>
+          <td style="color:#64748b">$4.78</td>
           <td><span class="status active">✅ Active</span></td>
         </tr>
         <tr>
@@ -332,7 +348,7 @@ footer a{color:#475569;text-decoration:none}
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
           <td style="color:#64748b">$0.00</td>
-          <td><span class="status inactive">🚫 Inactive</span></td>
+          <td><span class="status inactive">😴 Inactive</span></td>
         </tr>
         <tr>
           <td>7</td>
@@ -343,66 +359,69 @@ footer a{color:#475569;text-decoration:none}
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
           <td style="color:#64748b">$0.00</td>
-          <td><span class="status inactive">🚫 Inactive</span></td>
+          <td><span class="status inactive">😴 Inactive</span></td>
         </tr>
         <tr>
           <td>8</td>
           <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">NH</div><strong>Nourhan Hosny</strong></div></td>
           <td style="color:#64748b">nourhan.hosny@fotopiatech.com</td>
-          <td>Owner</td>
+          <td>Admin</td>
           <td>$20.00</td>
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
           <td style="color:#64748b">$0.00</td>
-          <td><span class="status inactive">🚫 Inactive</span></td>
+          <td><span class="status inactive">😴 Inactive</span></td>
         </tr>
         <tr>
           <td>9</td>
           <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-cursor">IM</div><strong>IT Manager</strong></div></td>
           <td style="color:#64748b">it.manager@win-holding.com</td>
-          <td>Owner</td>
+          <td>Admin</td>
           <td>$20.00</td>
           <td class="spend-zero">—</td>
           <td><strong>$20.00</strong></td>
           <td style="color:#64748b">$0.00</td>
-          <td><span class="status inactive">🚫 Inactive</span></td>
+          <td><span class="status inactive">😴 Inactive</span></td>
         </tr>
       </tbody>
     </table>
-    <div class="note-bar cursor">💡 <strong>Cost note:</strong> Subscription = $20/seat/month. On-demand = extra usage beyond included quota (billed in arrears). Current cycle: Apr 1 – May 1, 2026. Analytics period: Mar 14 → Apr 15, 2026. Per-user agent lines unavailable (leaderboard API error — using team aggregates). 2 users currently blocked due to on-demand spend limit.</div>
+    <div class="note-bar cursor">💡 <strong>Cost note:</strong> Subscription = $20/seat/month · 9 seats = $180/month. On-demand = extra usage beyond included quota (billed in arrears). Current cycle: Apr 1 – May 1, 2026. Analytics period: Mar 18 → Apr 16, 2026. Hard limit $45 reached — $1,285.67 refunded. 2 users currently blocked due to on-demand spend limit. Favorite model this cycle: claude-4.6-opus-high-thinking.</div>
   </div>
 
   <!-- CLAUDE MEMBER TABLE -->
   <div class="section-title">🤖 CLAUDE — MEMBER DETAILS</div>
-  <div class="tool-header claude">🤖 CLAUDE (Anthropic) · Team Members <span class="pill">21 seats · 21 active</span></div>
+  <div class="tool-header claude">🤖 CLAUDE (Anthropic) · Team Members <span class="pill">24 seats · 22 active · 2 pending</span></div>
   <div class="table-wrap">
     <table>
       <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Seat Tier</th><th>Cost/Seat</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AK</div><strong>Abuthahir Kamaluden</strong></div></td><td style="color:#64748b">Abuthahir.Kamaluden@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>2</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AA</div><strong>Ahmed Abouzaid</strong></div></td><td style="color:#64748b">ahmed.abouzaid@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>3</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AI</div><strong>Ahmed Adil</strong></div></td><td style="color:#64748b">ahmed.adil@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>4</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AM</div><strong>Amousa</strong></div></td><td style="color:#64748b">amousa@infasme.com</td><td>Owner</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>5</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">BM</div><strong>Bahaa Mohamed</strong></div></td><td style="color:#64748b">bahaa.mohamed@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>6</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">DS</div><strong>Dalia Salah</strong></div></td><td style="color:#64748b">dalia.salah@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>7</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">EA</div><strong>Engy Ahmed</strong></div></td><td style="color:#64748b">engy.ahmed@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>8</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">HF</div><strong>Hussein Firas</strong></div></td><td style="color:#64748b">Hussein.Firas@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>9</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MY</div><strong>Mohammed Yasser</strong></div></td><td style="color:#64748b">i-mohamed.yasser@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>10</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">FM</div><strong>Fotopia IT Manager</strong></div></td><td style="color:#64748b">it.manager@win-holding.com</td><td>Primary Owner</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>11</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">KE</div><strong>Kerolos Elnesr</strong></div></td><td style="color:#64748b">Kerolos.Elnesr@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>12</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MS</div><strong>Mohamed Salah</strong></div></td><td style="color:#64748b">Mohamed.Salah@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>13</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MZ</div><strong>Muzamil Siddiqui</strong></div></td><td style="color:#64748b">Muzamil.Siddiqui@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>14</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">NH</div><strong>Nour Helal</strong></div></td><td style="color:#64748b">nour.helal@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>15</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">OM</div><strong>Omar Mohamed</strong></div></td><td style="color:#64748b">omar.mohamed@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>16</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">OS</div><strong>Omar Saeed</strong></div></td><td style="color:#64748b">omar.saeed@music-yard.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>17</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">RA</div><strong>Rozia Aslam</strong></div></td><td style="color:#64748b">rozia.aslam@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>18</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SA</div><strong>Sameh Amnoun</strong></div></td><td style="color:#64748b">sameh.amnoun@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>19</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SB</div><strong>Shahad Bayram</strong></div></td><td style="color:#64748b">Shahad.Bayram@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>20</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SN</div><strong>Sylvia Naguib</strong></div></td><td style="color:#64748b">Sylvia.Naguib@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
-        <tr><td>21</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">YE</div><strong>Yasmina Elzeki</strong></div></td><td style="color:#64748b">Yasmina.Elzeki@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>1</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AA</div><strong>Abdelfattah Abdelgalil</strong><span class="new-badge">NEW</span></div></td><td style="color:#64748b">abdelfattah.abdelgalil@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status pending">⏳ Pending</span></td></tr>
+        <tr><td>2</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AK</div><strong>Abuthahir Kamaluden</strong></div></td><td style="color:#64748b">Abuthahir.Kamaluden@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>3</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AA</div><strong>Ahmed Abouzaid</strong></div></td><td style="color:#64748b">ahmed.abouzaid@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>4</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AI</div><strong>Ahmed Adil</strong></div></td><td style="color:#64748b">ahmed.adil@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>5</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">AM</div><strong>Amousa</strong></div></td><td style="color:#64748b">amousa@infasme.com</td><td>Owner</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>6</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">BM</div><strong>Bahaa Mohamed</strong></div></td><td style="color:#64748b">bahaa.mohamed@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>7</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">DS</div><strong>Dalia Salah</strong></div></td><td style="color:#64748b">dalia.salah@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>8</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">EA</div><strong>Engy Ahmed</strong></div></td><td style="color:#64748b">engy.ahmed@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>9</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">HM</div><strong>Hisham Medhat</strong><span class="new-badge">NEW</span></div></td><td style="color:#64748b">hisham.medhat@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status pending">⏳ Pending</span></td></tr>
+        <tr><td>10</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">HF</div><strong>Hussein Firas</strong></div></td><td style="color:#64748b">Hussein.Firas@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>11</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">FM</div><strong>Fotopia IT Manager</strong></div></td><td style="color:#64748b">it.manager@win-holding.com</td><td>Primary Owner</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>12</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">KE</div><strong>Kerolos Elnesr</strong></div></td><td style="color:#64748b">Kerolos.Elnesr@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>13</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MK</div><strong>Mohan KV</strong><span class="new-badge">NEW</span></div></td><td style="color:#64748b">mohan.kv@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>14</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MS</div><strong>Mohamed Salah</strong></div></td><td style="color:#64748b">Mohamed.Salah@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>15</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MY</div><strong>Mohammed Yasser</strong></div></td><td style="color:#64748b">i-mohamed.yasser@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>16</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">MZ</div><strong>Muzamil Siddiqui</strong></div></td><td style="color:#64748b">Muzamil.Siddiqui@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>17</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">NH</div><strong>Nour Helal</strong></div></td><td style="color:#64748b">nour.helal@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>18</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">OM</div><strong>Omar Mohamed</strong></div></td><td style="color:#64748b">omar.mohamed@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>19</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">OS</div><strong>Omar Saeed</strong></div></td><td style="color:#64748b">omar.saeed@music-yard.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>20</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">RA</div><strong>Rozia Aslam</strong></div></td><td style="color:#64748b">rozia.aslam@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>21</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SA</div><strong>Sameh Amnoun</strong></div></td><td style="color:#64748b">sameh.amnoun@fotopiatech.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>22</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SB</div><strong>Shahad Bayram</strong></div></td><td style="color:#64748b">Shahad.Bayram@infasme.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>23</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">SN</div><strong>Sylvia Naguib</strong></div></td><td style="color:#64748b">Sylvia.Naguib@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
+        <tr><td>24</td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar av-claude">YE</div><strong>Yasmina Elzeki</strong></div></td><td style="color:#64748b">Yasmina.Elzeki@win-holding.com</td><td>User</td><td>Standard</td><td>$25.00</td><td><span class="status active">✅ Active</span></td></tr>
       </tbody>
     </table>
-    <div class="note-bar claude">💡 Per-user activity not available in Claude admin — Anthropic does not expose usage metrics per seat in the Team plan. Data as of Apr 15, 2026 live fetch.</div>
+    <div class="note-bar claude">💡 Per-user activity not available in Claude admin — Anthropic does not expose usage metrics per seat in the Team plan. Data as of Apr 16, 2026 live fetch. Extra usage balance: $174.82. 3 new seats added today (mohan.kv@win-holding.com active, 2 pending invitations). Next billing: May 2, 2026 at $600.</div>
   </div>
 
   <!-- COST SUMMARY -->
@@ -410,11 +429,11 @@ footer a{color:#475569;text-decoration:none}
   <div class="total-banner">
     <div>
       <div class="label">Total AI Spend (Cursor + Claude — April 2026)</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:3px">Cursor Apr 1–15 ($357.80 seats + $45 cap) + Claude $525 · Apr 15, 2026</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:3px">Cursor Apr 1–16 ($357.80 seats + $45 on-demand cap) + Claude $600 projected · Apr 16, 2026</div>
     </div>
     <div style="text-align:right">
-      <div class="amount">$927.80</div>
-      <div class="note">✅ Cursor hard cap ($45) limits on-demand cost despite $1,330.22 raw usage. Cursor refunding $1,285.22 overage. Data updated Apr 15, 2026 (live fetch)</div>
+      <div class="amount">$1,002.80</div>
+      <div class="note">✅ Cursor hard cap ($45) limits on-demand cost despite $1,330.67 raw usage. Refund of $1,285.67 processed. Claude seats increased 21→24 (+$75/mo). Data updated Apr 16, 2026 (live fetch)</div>
     </div>
   </div>
 
@@ -423,33 +442,34 @@ footer a{color:#475569;text-decoration:none}
   <div class="insights">
     <div class="insight danger">
       <div class="insight-title">🚨 CRITICAL — On-Demand Limit Reached, 2 Users Blocked</div>
-      <div class="insight-text">The team has hit 100% of the Cursor on-demand usage limit. 2 users are currently blocked from making requests. Mohamed Salah accounts for $1,133.01 of $1,330.22 total on-demand charges (85%). Immediately increase the limit or set per-user caps. Consider switching Mohamed Salah to a cheaper model for routine tasks.</div>
+      <div class="insight-text">The team has hit 100% of the Cursor on-demand usage limit. 2 users are currently blocked from making requests. Mohamed Salah accounts for $1,133.46 of $1,330.67 total on-demand charges (85%). Immediately increase the $45 hard limit or set per-user caps before the next billing cycle begins on May 1. Consider model selection policies for high-volume users.</div>
     </div>
     <div class="insight danger">
-      <div class="insight-title">🚨 URGENT — Cursor On-Demand Spend Trending High</div>
-      <div class="insight-text">At $1,330.22 on-demand in just 13 days of April, the monthly projection is ~$3,065 on-demand alone. Combined with $180 in seat costs and $525 for Claude, total AI spend could reach ~$3,770 for April. Enforce model selection policies and review usage now.</div>
+      <div class="insight-title">🚨 URGENT — Cursor On-Demand Spend Trending Very High</div>
+      <div class="insight-text">At $1,330.67 on-demand in 16 days of April, the monthly projection is ~$2,490 on-demand alone. Combined with $180 in seat costs and $600 for Claude, total AI spend could reach ~$3,270 for April if the limit were removed. Enforce model selection policies (claude-4.6-opus-high-thinking is the most-used premium model) and review usage now.</div>
     </div>
     <div class="insight good">
-      <div class="insight-title">✅ Cursor igBTV Strong Productivity Output</div>
-      <div class="insight-text">Team generated 257.9K total agent lines accepted (30-day period), up from 198.3K last week. 7,687 composer diffs accepted and 351 tab completions accepted. AI-assisted development is clearly driving output — the challenge is cost control.</div>
+      <div class="insight-title">✅ Cursor i�� Strong Productivity Output Up 28%</div>
+      <div class="insight-text">Team generated 330.7K total agent lines accepted (30-day period), up +28% from 257.9K last report. 86% of committed code is AI-assisted. AI line edits total 364,083 since tracking began. AI-assisted development is clearly driving output — the challenge remains cost control.</div>
     </div>
-    <div class="insight good">
-      <div class="insight-title">✅ Claude — Fully Utilized</div>
-      <div class="insight-text">All 21 seats occupied and active (100% utilization). Monthly cost stable at $525 ($25/seat × 21 seats). Next billing May 2, 2026. Extra usage balance: $174.82 available. No changes in member roster this cycle.</div>
+    <div class="insight info">
+      <div class="insight-title">🆕 Claude — 3 New Seats Added Today (21 → 24)</div>
+      <div class="insight-text">3 new seats provisioned on Apr 16: Mohan KV (mohan.kv@win-holding.com, active) + 2 pending invitations (abdelfattah.abdelgalil@win-holding.com, hisham.medhat@win-holding.com). Monthly cost increases from $525 to $600 ($25 × 24 seats) effective with the next billing cycle. Extra usage balance: $174.82 available.</div>
     </div>
     <div class="insight warn">
       <div class="insight-title">⚠️ Google Gemini — Zero Usage</div>
-      <div class="insight-text">10 users are eligible but none have used Gemini in 30 days. Included in the Workspace plan at no extra cost, but value is unrealized. Recommend scheduling an adoption workshop.</div>
+      <div class="insight-text">10 users are eligible but none have used Gemini in 30 days. Included in the Workspace plan at no extra cost, but value is unrealized. Recommend scheduling an adoption workshop to demonstrate Gemini's capabilities for team members who may benefit from its integration with Google Workspace.</div>
     </div>
     <div class="insight warn">
-      <div class="insight-title">⚠️ Cursor Inactive Seats — 44%</div>
-      <div class="insight-text">4 of 9 Cursor seats are inactive (Ahmed Himdan, Amousa, Nourhan Hosny, IT Manager). 1 seat was removed since last report (Asmaa Mohamed). Consider reassigning remaining inactive seats to offset the on-demand cost spike.</div>
+      <div class="insight-title">⚠️ Cursor Inactive Seats — 44% Wasted</div>
+      <div class="insight-text">4 of 9 Cursor seats are inactive (Ahmed Himdan, Amousa, Nourhan Hosny, IT Manager) at $80/month with zero usage. With Mohamed Salah generating 85% of all on-demand charges, consider reallocating inactive seats to cover on-demand costs or remove them to reduce fixed seat costs.</div>
     </div>
   </div>
+
 </div><!-- /main -->
 
 <footer>
-  AI Tools Usage Dashboard · Fotopia Development Team · Data from Cursor API + Claude Admin · Auto-updated daily via Cowork &amp; GitHub Actions ·
+  AI Tools Usage Dashboard · Fotopia Development Team · Data from Cursor Dashboard + Claude Admin · Auto-updated daily via Cowork &amp; GitHub Actions ·
   <a href="https://github.com/nurhanhossny-ai/AItools-dashboard">github.com/nurhanhossny-ai/AItools-dashboard</a>
 </footer>
 
@@ -484,7 +504,7 @@ function applyCustom() {
 }
 
 // Charts
-const seatsData = {"labels": ["Cursor", "Claude", "Gemini"], "active": [5, 21, 0], "total": [9, 21, 10]};
+const seatsData = {"labels": ["Cursor", "Claude", "Gemini"], "active": [5, 22, 0], "total": [9, 24, 10]};
 new Chart(document.getElementById('seatsChart'), {
   type: 'bar',
   data: {
@@ -497,14 +517,14 @@ new Chart(document.getElementById('seatsChart'), {
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#94a3b8',font:{size:11}}}},scales:{x:{ticks:{color:'#64748b'},grid:{color:'#1e293b'}},y:{ticks:{color:'#64748b'},grid:{color:'#1e293b'}}}}
 });
 
-const costData = {"labels": ["Cursor Seats", "Cursor On-Demand", "Claude"], "values": [180.0, 1328.18, 525], "colors": ["#0096c7", "#dc2626", "#7c3aed"]};
+const costData = {"labels": ["Cursor Seats", "Cursor On-Demand (capped)", "Claude"], "values": [180.0, 45.0, 600], "colors": ["#0096c7", "#dc2626", "#7c3aed"]};
 new Chart(document.getElementById('costChart'), {
   type: 'doughnut',
   data: {
     labels: costData.labels,
     datasets:[{data:costData.values,backgroundColor:costData.colors,borderWidth:0,hoverOffset:8}]
   },
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:zcolor:#94a3b8',font:{size:11},padding:12}}}}
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11},padding:12}}}}
 });
 </script>
 </body>
